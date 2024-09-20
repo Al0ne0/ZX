@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NiNi Work - Empleos para Jóvenes Sin Experiencia</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #1e3a8a; /* Color de fondo azul oscuro */
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+        }
+        header h1 {
+            font-size: 3rem; /* Tamaño más grande */
+            margin: 0;
+            font-weight: bold;
+            letter-spacing: 2px; /* Espaciado entre letras */
+            text-transform: uppercase; /* Texto en mayúsculas */
+            font-family: 'Arial Black', sans-serif; /* Fuente más impactante */
+        }
+        header p {
+            font-size: 1.2rem; /* Texto descriptivo más pequeño */
+            margin-top: 5px;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #374151; /* Color gris oscuro */
+            padding: 10px;
+        }
+        nav a {
+            color: #fff;
+            margin: 0 15px;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-weight: bold;
+            background-color: #1e40af; /* Color de fondo del enlace */
+            border-radius: 5px; /* Bordes redondeados */
+            transition: background-color 0.3s ease;
+        }
+        nav a:hover {
+            background-color: #1d4ed8; /* Color más claro al pasar el cursor */
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        .search-bar {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .search-bar input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .job-listing {
+            background-color: #fff;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .job-listing h2 {
+            margin-top: 0;
+            font-size: 1.5rem;
+            color: #1f2937;
+        }
+        .job-listing .details {
+            margin-bottom: 10px;
+            color: #4b5563;
+        }
+        .job-listing .details span {
+            display: block;
+            font-weight: bold;
+        }
+        .contact-section {
+            background-color: #fff;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .contact-section h2 {
+            font-size: 1.5rem;
+            color: #1f2937;
+        }
+        .contact-section p {
+            margin: 10px 0;
+            font-size: 1rem;
+            color: #4b5563;
+        }
+        .contact-section a {
+            display: inline-block;
+            background-color: #25D366;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 10px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .contact-section a:hover {
+            background-color: #22c35e;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+        footer a {
+            color: #fff;
+            text-decoration: underline;
+        }
+    </style>
+    <script>
+        // Función para filtrar trabajos por título
+        function buscarTrabajo() {
+            var input, filter, jobList, jobListings, jobTitle, i;
+            input = document.getElementById('search-input');
+            filter = input.value.toLowerCase();
+            jobList = document.getElementById('job-list');
+            jobListings = jobList.getElementsByClassName('job-listing');
+
+            for (i = 0; i < jobListings.length; i++) {
+                jobTitle = jobListings[i].getElementsByTagName('h2')[0];
+                if (jobTitle.innerHTML.toLowerCase().indexOf(filter) > -1) {
+                    jobListings[i].style.display = "";
+                } else {
+                    jobListings[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <!-- Encabezado Principal -->
+    <header>
+        <h1>NiNi Work</h1>
+        <p>Empleos para Jóvenes Sin Experiencia en Colombia</p>
+    </header>
+
+    <!-- Barra de Navegación -->
+    <nav>
+        <a href="#">Empleos</a>
+    </nav>
+
+    <!-- Contenido Principal -->
+    <div class="container">
+        <!-- Barra de Búsqueda -->
+        <div class="search-bar">
+            <input type="text" id="search-input" onkeyup="buscarTrabajo()" placeholder="Buscar trabajos por título">
+        </div>
+
+        <!-- Listado de Empleos -->
+        <div id="job-list">
+            <!-- Ejemplo de Trabajo -->
+            <div class="job-listing">
+                <h2>Representante de Atención al Cliente</h2>
+                <div class="details">
+                    <span>Empresa: Contact Center Bogotá</span>
+                    <span>Ubicación: Bogotá, Cundinamarca</span>
+                    <span>Salario: $1,200,000 COP/mes</span>
+                </div>
+                <p>Buscamos jóvenes dinámicos para atención al cliente. No se requiere experiencia previa. Ofrecemos capacitación completa y oportunidades de crecimiento.</p>
+                <a href="https://wa.me/573001234567" class="contact-button">Contactar</a>
+            </div>
+            <!-- Aquí puedes agregar más trabajos -->
+        </div>
+
+        <!-- Sección de Contacto para Publicar Trabajos -->
+        <div class="contact-section">
+            <h2>¿Quieres publicar un trabajo?</h2>
+            <p>Si deseas publicar un empleo en NiNi Work, por favor contáctanos a través de WhatsApp.</p>
+            <a href="https://wa.me/573001234567" target="_blank">Contáctanos en WhatsApp</a>
+        </div>
+    </div>
+
+    <!-- Pie de Página -->
+    <footer>
+        <p>&copy; 2024 NiNi Work. Todos los derechos reservados.</p>
+        <p><a href="#">Términos y Condiciones</a> | <a href="#">Política de Privacidad</a></p>
+    </footer>
+</body>
+</html>
