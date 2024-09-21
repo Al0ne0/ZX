@@ -106,7 +106,7 @@
             projectId: "zx-film",
             storageBucket: "zx-film.appspot.com",
             messagingSenderId: "246886908128",
-            appId: "1:246886908128:web:484f2c8e4b60ef66555085"
+            appId: "1:246886908128:web:484f2c8e4b60ef66555085",
             measurementId: "G-TGY16E0SQ5"
         };
 
@@ -118,6 +118,13 @@
         function login() {
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
+            
+            // Validación básica
+            if (!email || !password) {
+                document.getElementById('status').innerText = "Por favor, completa todos los campos.";
+                return;
+            }
+
             auth.signInWithEmailAndPassword(email, password)
                 .then((userCredential) => {
                     // Inicio de sesión exitoso
@@ -125,6 +132,7 @@
                 })
                 .catch((error) => {
                     document.getElementById('status').innerText = error.message;
+                    console.error("Error de inicio de sesión:", error);
                 });
         }
 
@@ -132,6 +140,13 @@
         function signup() {
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
+
+            // Validación básica
+            if (!email || !password) {
+                document.getElementById('status').innerText = "Por favor, completa todos los campos.";
+                return;
+            }
+
             auth.createUserWithEmailAndPassword(email, password)
                 .then((userCredential) => {
                     // Registro exitoso
@@ -139,6 +154,7 @@
                 })
                 .catch((error) => {
                     document.getElementById('status').innerText = error.message;
+                    console.error("Error de registro:", error);
                 });
         }
 
@@ -146,6 +162,7 @@
         function showJobSection() {
             document.getElementById('login-container').style.display = 'none';
             document.getElementById('jobs-container').style.display = 'block';
+            console.log("Mostrando la sección de empleos.");
         }
 
         // Función de cerrar sesión
@@ -154,8 +171,10 @@
                 document.getElementById('jobs-container').style.display = 'none';
                 document.getElementById('login-container').style.display = 'block';
                 document.getElementById('status').innerText = "Sesión cerrada.";
+                console.log("Sesión cerrada.");
             }).catch((error) => {
                 document.getElementById('status').innerText = error.message;
+                console.error("Error al cerrar sesión:", error);
             });
         }
 
