@@ -61,21 +61,22 @@
         const app = firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        const loginDiv = document.getElementById('login');
-        const chatroomDiv = document.getElementById('chatroom');
+        // Mostrar pantalla de login
+        document.getElementById('login').style.display = 'block';
 
+        // Entrar al chat
         document.getElementById('enterChat').addEventListener('click', () => {
             const username = document.getElementById('username').value;
             if (username) {
-                loginDiv.style.display = 'none';
-                chatroomDiv.style.display = 'flex';
-                displayMessage(`${username} se ha unido al chat.`, 'system-message');
-                loadMessages();
+                document.getElementById('login').style.display = 'none';
+                document.getElementById('chatroom').style.display = 'flex';
+                loadMessages(); // Cargar mensajes al entrar
             } else {
                 alert("Por favor, ingresa un nombre de usuario.");
             }
         });
 
+        // Enviar mensaje
         document.getElementById('messageForm').addEventListener('submit', (e) => {
             e.preventDefault();
             const messageInput = document.getElementById('messageInput');
@@ -88,39 +89,44 @@
                 timestamp: firebase.firestore.FieldValue.serverTimestamp()
             }).then(() => {
                 messageInput.value = '';
+            }).catch(error => {
+                console.error("Error al enviar el mensaje: ", error);
             });
         });
 
+        // Cargar mensajes en tiempo real
         function loadMessages() {
             db.collection("messages").orderBy("timestamp")
                 .onSnapshot((querySnapshot) => {
                     const messagesDiv = document.getElementById('messages');
-                    messagesDiv.innerHTML = '';
+                    messagesDiv.innerHTML = ''; // Limpiar mensajes previos
                     querySnapshot.forEach((doc) => {
                         const data = doc.data();
                         displayMessage(`${data.username}: ${data.message}`, 'user-message');
                     });
+                }, (error) => {
+                    console.error("Error al cargar mensajes: ", error);
                 });
         }
 
+        // Mostrar mensaje en el chat
         function displayMessage(message, className) {
             const messagesDiv = document.getElementById('messages');
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${className}`;
             messageDiv.textContent = message;
             messagesDiv.appendChild(messageDiv);
-            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            messagesDiv.scrollTop = messagesDiv.scrollHeight; // Desplazar hacia abajo
         }
 
+        // Salir del chat
         document.getElementById('logout').addEventListener('click', () => {
-            chatroomDiv.style.display = 'none';
-            loginDiv.style.display = 'block';
+            document.getElementById('chatroom').style.display = 'none';
+            document.getElementById('login').style.display = 'block';
             document.getElementById('username').value = '';
             document.getElementById('messageInput').value = '';
             document.getElementById('messages').innerHTML = '';
         });
-
-        loginDiv.style.display = 'block';
     </script>
 </body>
 </html>
