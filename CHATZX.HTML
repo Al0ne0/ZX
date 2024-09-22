@@ -7,44 +7,26 @@
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js"></script>
     <style>
-        * { box-sizing: border-box; }
-        body { font-family: Arial, sans-serif; background-color: #f0f0f0; margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; }
-        .chat-container { width: 100%; max-width: 600px; background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; }
-        .header { background-color: #4CAF50; color: white; padding: 15px; text-align: center; }
-        .login, .chatroom { padding: 20px; display: none; }
-        .messages { flex: 1; padding: 10px; overflow-y: auto; border-bottom: 1px solid #ddd; display: flex; flex-direction: column; }
-        .message { padding: 10px; border-radius: 4px; margin-bottom: 5px; }
-        .user-message { background-color: #e7f3fe; align-self: flex-end; }
-        .system-message { background-color: #f1f1f1; align-self: flex-start; font-style: italic; }
+        body { font-family: Arial, sans-serif; background-color: #f0f0f0; margin: 0; }
+        .chat-container { width: 100%; max-width: 600px; margin: 50px auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
+        .messages { max-height: 400px; overflow-y: auto; border: 1px solid #ddd; margin-bottom: 10px; padding: 10px; }
+        .message { margin-bottom: 10px; }
+        .message strong { color: #4CAF50; }
         form { display: flex; }
-        input, select { padding: 10px; margin-right: 5px; flex: 1; }
-        button { padding: 10px; border: none; background-color: #4CAF50; color: white; cursor: pointer; }
+        input { flex: 1; padding: 10px; }
+        button { padding: 10px; background-color: #4CAF50; color: white; border: none; cursor: pointer; }
         button:hover { background-color: #45a049; }
     </style>
 </head>
 <body>
     <div class="chat-container">
-        <div id="login" class="login">
-            <h1>Bienvenido al Chat</h1>
-            <input type="text" id="username" placeholder="Nombre de usuario" required>
-            <select id="country" required>
-                <option value="US">🇺🇸 Estados Unidos</option>
-                <option value="MX">🇲🇽 México</option>
-                <option value="ES">🇪🇸 España</option>
-            </select>
-            <button id="enterChat">Entrar al Chat</button>
-        </div>
-        <div id="chatroom" class="chatroom">
-            <div class="header">
-                <h2>Chat en Tiempo Real</h2>
-                <button id="logout">Salir</button>
-            </div>
-            <div id="messages" class="messages"></div>
-            <form id="messageForm">
-                <input type="text" id="messageInput" placeholder="Escribe un mensaje..." required>
-                <button type="submit">Enviar</button>
-            </form>
-        </div>
+        <h1>Chat en Tiempo Real</h1>
+        <div id="messages" class="messages"></div>
+        <form id="messageForm">
+            <input type="text" id="username" placeholder="Nombre" required>
+            <input type="text" id="messageInput" placeholder="Escribe un mensaje..." required>
+            <button type="submit">Enviar</button>
+        </form>
     </div>
 
     <script>
@@ -61,66 +43,34 @@
         const app = firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        const loginDiv = document.getElementById('login');
-        const chatroomDiv = document.getElementById('chatroom');
-
-        document.getElementById('enterChat').addEventListener('click', () => {
-            const username = document.getElementById('username').value;
-            if (username) {
-                loginDiv.style.display = 'none';
-                chatroomDiv.style.display = 'flex';
-                displayMessage(`${username} se ha unido al chat.`, 'system-message');
-                loadMessages();
-            } else {
-                alert("Por favor, ingresa un nombre de usuario.");
-            }
-        });
-
+        // Enviar mensaje
         document.getElementById('messageForm').addEventListener('submit', (e) => {
             e.preventDefault();
-            const messageInput = document.getElementById('messageInput');
-            const message = messageInput.value;
             const username = document.getElementById('username').value;
+            const message = document.getElementById('messageInput').value;
 
             db.collection("messages").add({
                 username: username,
                 message: message,
                 timestamp: firebase.firestore.FieldValue.serverTimestamp()
             }).then(() => {
-                messageInput.value = '';
+                document.getElementById('messageInput').value = '';
             });
         });
 
-        function loadMessages() {
-            db.collection("messages").orderBy("timestamp")
-                .onSnapshot((querySnapshot) => {
-                    const messagesDiv = document.getElementById('messages');
-                    messagesDiv.innerHTML = '';
-                    querySnapshot.forEach((doc) => {
-                        const data = doc.data();
-                        displayMessage(`${data.username}: ${data.message}`, 'user-message');
-                    });
+        // Cargar mensajes en tiempo real
+        db.collection("messages").orderBy("timestamp")
+            .onSnapshot((querySnapshot) => {
+                const messagesDiv = document.getElementById('messages');
+                messagesDiv.innerHTML = ''; // Limpiar mensajes previos
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const messageElement = document.createElement('div');
+                    messageElement.className = 'message';
+                    messageElement.innerHTML = `<strong>${data.username}</strong>: ${data.message}`;
+                    messagesDiv.appendChild(messageElement);
                 });
-        }
-
-        function displayMessage(message, className) {
-            const messagesDiv = document.getElementById('messages');
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `message ${className}`;
-            messageDiv.textContent = message;
-            messagesDiv.appendChild(messageDiv);
-            messagesDiv.scrollTop = messagesDiv.scrollHeight;
-        }
-
-        document.getElementById('logout').addEventListener('click', () => {
-            chatroomDiv.style.display = 'none';
-            loginDiv.style.display = 'block';
-            document.getElementById('username').value = '';
-            document.getElementById('messageInput').value = '';
-            document.getElementById('messages').innerHTML = '';
-        });
-
-        loginDiv.style.display = 'block';
+            });
     </script>
 </body>
 </html>
