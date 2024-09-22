@@ -4,98 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat en Tiempo Real</title>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js"></script>
     <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .chat-container {
-            display: flex;
-            flex-direction: column;
-            height: 80%;
-            width: 100%;
-            max-width: 600px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 15px;
-            text-align: center;
-            border-top-left-radius: 8px;
-            border-top-right-radius: 8px;
-        }
-
-        .login, .chatroom {
-            padding: 20px;
-            display: none;
-        }
-
-        .messages {
-            flex: 1;
-            padding: 10px;
-            overflow-y: auto;
-            border-bottom: 1px solid #ddd;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .message {
-            padding: 10px;
-            border-radius: 4px;
-            margin-bottom: 5px;
-            width: fit-content;
-            max-width: 70%;
-        }
-
-        .user-message {
-            background-color: #e7f3fe;
-            align-self: flex-end;
-        }
-
-        .system-message {
-            background-color: #f1f1f1;
-            align-self: flex-start;
-            font-style: italic;
-        }
-
-        form {
-            display: flex;
-        }
-
-        input, select {
-            padding: 10px;
-            margin-right: 5px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            flex: 1;
-        }
-
-        button {
-            padding: 10px;
-            border: none;
-            background-color: #4CAF50;
-            color: white;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
+        * { box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background-color: #f0f0f0; margin: 0; height: 100vh; display: flex; justify-content: center; align-items: center; }
+        .chat-container { display: flex; flex-direction: column; height: 80%; width: 100%; max-width: 600px; background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
+        .header { background-color: #4CAF50; color: white; padding: 15px; text-align: center; border-top-left-radius: 8px; border-top-right-radius: 8px; }
+        .login, .chatroom { padding: 20px; display: none; }
+        .messages { flex: 1; padding: 10px; overflow-y: auto; border-bottom: 1px solid #ddd; display: flex; flex-direction: column; }
+        .message { padding: 10px; border-radius: 4px; margin-bottom: 5px; width: fit-content; max-width: 70%; }
+        .user-message { background-color: #e7f3fe; align-self: flex-end; }
+        .system-message { background-color: #f1f1f1; align-self: flex-start; font-style: italic; }
+        form { display: flex; }
+        input, select { padding: 10px; margin-right: 5px; border: 1px solid #ddd; border-radius: 4px; flex: 1; }
+        button { padding: 10px; border: none; background-color: #4CAF50; color: white; cursor: pointer; border-radius: 4px; }
+        button:hover { background-color: #45a049; }
     </style>
 </head>
 <body>
@@ -112,7 +37,7 @@
                 <option value="CL">🇨🇱 Chile</option>
                 <option value="CO">🇨🇴 Colombia</option>
             </select>
-            <button id="enterChat">Entrar al Chat</button>
+            <button id="googleLogin">Iniciar Sesión con Google</button>
         </div>
         <div id="chatroom" class="chatroom">
             <div class="header">
@@ -128,34 +53,78 @@
     </div>
 
     <script>
-        const loginDiv = document.getElementById('login');
-        const chatroomDiv = document.getElementById('chatroom');
+        const firebaseConfig = {
+            apiKey: "AIzaSyB5du0ZYBobhfVSMaz-3SlUj-_iBew8Q8E",
+            authDomain: "chat-zx.firebaseapp.com",
+            projectId: "chat-zx",
+            storageBucket: "chat-zx.appspot.com",
+            messagingSenderId: "795455779249",
+            appId: "1:795455779249:web:d3ba5b50e2cce5ea9c4d90",
+        };
 
-        document.getElementById('enterChat').addEventListener('click', () => {
-            const username = document.getElementById('username').value;
-            const country = document.getElementById('country').value;
+        // Inicializa Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
 
-            if (username && country) {
-                loginDiv.style.display = 'none';
-                chatroomDiv.style.display = 'flex';
-                displayMessage(`${username} se ha unido al chat.`, 'system-message');
-            } else {
-                alert("Por favor, completa todos los campos.");
-            }
+        // Mostrar pantalla de login
+        document.getElementById('login').style.display = 'block';
+
+        // Iniciar sesión con Google
+        document.getElementById('googleLogin').addEventListener('click', () => {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            auth.signInWithPopup(provider).then((result) => {
+                const user = result.user;
+                const username = document.getElementById('username').value || user.displayName;
+                const country = document.getElementById('country').value || 'US';
+                
+                // Guardar usuario en Firestore
+                db.collection("users").doc(user.uid).set({
+                    username: username,
+                    country: country
+                }).then(() => {
+                    document.getElementById('login').style.display = 'none';
+                    document.getElementById('chatroom').style.display = 'flex';
+                    displayMessage(`${username} se ha unido al chat.`, 'system-message');
+                    loadMessages();
+                });
+            }).catch((error) => {
+                console.error("Error en el inicio de sesión: ", error);
+            });
         });
 
+        // Enviar mensaje
         document.getElementById('messageForm').addEventListener('submit', (e) => {
             e.preventDefault();
             const messageInput = document.getElementById('messageInput');
             const message = messageInput.value;
-            const username = document.getElementById('username').value;
+            const user = auth.currentUser;
 
-            // Mostrar el mensaje del usuario
-            displayMessage(`${username}: ${message}`, 'user-message');
-
-            messageInput.value = '';
+            if (user) {
+                db.collection("messages").add({
+                    username: user.displayName,
+                    message: message,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                }).then(() => {
+                    messageInput.value = '';
+                });
+            }
         });
 
+        // Cargar mensajes en tiempo real
+        function loadMessages() {
+            db.collection("messages").orderBy("timestamp")
+                .onSnapshot((querySnapshot) => {
+                    const messagesDiv = document.getElementById('messages');
+                    messagesDiv.innerHTML = ''; // Limpiar mensajes previos
+                    querySnapshot.forEach((doc) => {
+                        const data = doc.data();
+                        displayMessage(`${data.username}: ${data.message}`, 'user-message');
+                    });
+                });
+        }
+
+        // Mostrar mensaje en el chat
         function displayMessage(message, className) {
             const messagesDiv = document.getElementById('messages');
             const messageDiv = document.createElement('div');
@@ -165,16 +134,16 @@
             messagesDiv.scrollTop = messagesDiv.scrollHeight; // Desplazar hacia abajo
         }
 
+        // Salir del chat
         document.getElementById('logout').addEventListener('click', () => {
-            chatroomDiv.style.display = 'none';
-            loginDiv.style.display = 'block';
-            document.getElementById('username').value = '';
-            document.getElementById('messageInput').value = '';
-            document.getElementById('messages').innerHTML = '';
+            auth.signOut().then(() => {
+                document.getElementById('chatroom').style.display = 'none';
+                document.getElementById('login').style.display = 'block';
+                document.getElementById('username').value = '';
+                document.getElementById('messageInput').value = '';
+                document.getElementById('messages').innerHTML = '';
+            });
         });
-
-        // Mostrar el login al cargar
-        loginDiv.style.display = 'block';
     </script>
 </body>
 </html>
