@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat en Tiempo Real</title>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js"></script>
     <style>
         * {
             box-sizing: border-box;
@@ -130,21 +128,6 @@
     </div>
 
     <script>
-        // Tu configuración de Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyB5du0ZYBobhfVSMaz-3SlUj-_iBew8Q8E",
-            authDomain: "chat-zx.firebaseapp.com",
-            projectId: "chat-zx",
-            storageBucket: "chat-zx.appspot.com",
-            messagingSenderId: "795455779249",
-            appId: "1:795455779249:web:d3ba5b50e2cce5ea9c4d90",
-            measurementId: "G-ES3HJKEMT1"
-        };
-
-        // Inicializa Firebase
-        const app = firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-
         const loginDiv = document.getElementById('login');
         const chatroomDiv = document.getElementById('chatroom');
 
@@ -156,7 +139,6 @@
                 loginDiv.style.display = 'none';
                 chatroomDiv.style.display = 'flex';
                 displayMessage(`${username} se ha unido al chat.`, 'system-message');
-                loadMessages(); // Cargar mensajes al entrar al chat
             } else {
                 alert("Por favor, completa todos los campos.");
             }
@@ -168,28 +150,11 @@
             const message = messageInput.value;
             const username = document.getElementById('username').value;
 
-            // Guardar mensaje en Firestore
-            db.collection("messages").add({
-                username: username,
-                message: message,
-                timestamp: firebase.firestore.FieldValue.serverTimestamp()
-            }).then(() => {
-                messageInput.value = '';
-            });
-        });
+            // Mostrar el mensaje del usuario
+            displayMessage(`${username}: ${message}`, 'user-message');
 
-        // Cargar mensajes desde Firestore
-        function loadMessages() {
-            db.collection("messages").orderBy("timestamp")
-                .onSnapshot((querySnapshot) => {
-                    const messagesDiv = document.getElementById('messages');
-                    messagesDiv.innerHTML = ''; // Limpiar mensajes previos
-                    querySnapshot.forEach((doc) => {
-                        const data = doc.data();
-                        displayMessage(`${data.username}: ${data.message}`, 'user-message');
-                    });
-                });
-        }
+            messageInput.value = '';
+        });
 
         function displayMessage(message, className) {
             const messagesDiv = document.getElementById('messages');
