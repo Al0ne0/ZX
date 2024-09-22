@@ -3,15 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat en Tiempo Real</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js"></script>
+    <title>Chat GPT Sin Respuestas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .chat-container {
+            width: 90%;
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: #007bff;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        .chat-box {
+            height: 400px;
+            padding: 10px;
+            overflow-y: scroll;
+        }
+        .input-area {
+            display: flex;
+        }
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-top: 1px solid #ddd;
+        }
+        button {
+            padding: 10px;
+            border: none;
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        .user-info {
+            margin: 10px auto;
+            text-align: center;
+        }
+    </style>
+    <!-- Agregar Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-database.js"></script>
 </head>
 <body>
-    <!-- El mismo contenido HTML aquí -->
-    
-    <script src="script.js"></script>
+    <div class="chat-container">
+        <div class="header">
+            <h1>Chat GPT</h1>
+        </div>
+        <div class="chat-box" id="chatBox"></div>
+        <div class="input-area">
+            <input type="text" id="messageInput" placeholder="Escribe un mensaje...">
+            <button id="sendButton">Enviar</button>
+        </div>
+    </div>
+    <div class="user-info">
+        <input type="text" id="userName" placeholder="Tu nombre">
+        <select id="countryFlag">
+            <option value="🇺🇸">EE.UU.</option>
+            <option value="🇲🇽">México</option>
+            <option value="🇪🇸">España</option>
+            <option value="🇬🇧">Reino Unido</option>
+            <option value="🇦🇷">Argentina</option>
+            <option value="🇨🇦">Canadá</option>
+            <option value="🇫🇷">Francia</option>
+            <option value="🇩🇪">Alemania</option>
+            <option value="🇮🇹">Italia</option>
+            <option value="🇧🇷">Brasil</option>
+            <option value="🇷🇺">Rusia</option>
+            <option value="🇨🇳">China</option>
+            <option value="🇯🇵">Japón</option>
+            <option value="🇰🇷">Corea del Sur</option>
+            <option value="🇨🇴">Colombia</option>
+            <!-- Agrega más banderas según sea necesario -->
+        </select>
+    </div>
+    <script>
+        // Configuración de Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyB5du0ZYBobhfVSMaz-3SlUj-_iBew8Q8E",
+            authDomain: "chat-zx.firebaseapp.com",
+            databaseURL: "https://chat-zx-default-rtdb.firebaseio.com",
+            projectId: "chat-zx",
+            storageBucket: "chat-zx.appspot.com",
+            messagingSenderId: "795455779249",
+            appId: "1:795455779249:web:d3ba5b50e2cce5ea9c4d90",
+            measurementId: "G-ES3HJKEMT1"
+        };
+
+        // Inicializar Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // Cargar mensajes desde Firebase
+        const chatBox = document.getElementById('chatBox');
+        database.ref('messages').on('child_added', (snapshot) => {
+            const message = snapshot.val();
+            const messageElement = document.createElement('div');
+            messageElement.textContent = `${message.flag} ${message.name}: ${message.text}`;
+            chatBox.appendChild(messageElement);
+            chatBox.scrollTop = chatBox.scrollHeight; // Desplazar hacia abajo
+        });
+
+        // Enviar mensajes
+        document.getElementById('sendButton').addEventListener('click', function() {
+            const messageInput = document.getElementById('messageInput');
+            const userName = document.getElementById('userName').value || 'Usuario';
+            const countryFlag = document.getElementById('countryFlag').value || '';
+
+            if (messageInput.value.trim()) {
+                const messageData = {
+                    name: userName,
+                    flag: countryFlag,
+                    text: messageInput.value
+                };
+
+                // Guardar mensaje en Firebase
+                database.ref('messages').push(messageData);
+                messageInput.value = '';
+            }
+        });
+    </script>
 </body>
 </html>
