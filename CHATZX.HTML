@@ -5,55 +5,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat GPT Sin Respuestas</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        .chat-container {
-            width: 90%;
-            max-width: 600px;
-            margin: auto;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
-        .header {
-            background: #007bff;
-            color: white;
-            padding: 10px;
-            text-align: center;
-        }
-        .chat-box {
-            height: 400px;
-            padding: 10px;
-            overflow-y: scroll;
-        }
-        .input-area {
-            display: flex;
-        }
-        input[type="text"] {
-            flex: 1;
-            padding: 10px;
-            border: none;
-            border-top: 1px solid #ddd;
-        }
-        button {
-            padding: 10px;
-            border: none;
-            background: #007bff;
-            color: white;
-            cursor: pointer;
-        }
-        .user-info {
-            margin: 10px auto;
-            text-align: center;
-        }
+        /* Tu CSS aquí */
     </style>
-    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-database.js"></script>
+    <script type="module">
+        // Importar funciones necesarias
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js";
+        import { getDatabase, ref, set, onChildAdded } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-database.js";
+
+        // Configuración de Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyB5du0ZYBobhfVSMaz-3SlUj-_iBew8Q8E",
+            authDomain: "chat-zx.firebaseapp.com",
+            databaseURL: "https://chat-zx-default-rtdb.firebaseio.com",
+            projectId: "chat-zx",
+            storageBucket: "chat-zx.appspot.com",
+            messagingSenderId: "795455779249",
+            appId: "1:795455779249:web:d3ba5b50e2cce5ea9c4d90",
+            measurementId: "G-ES3HJKEMT1"
+        };
+
+        // Inicializar Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        // Enviar mensajes
+        document.getElementById('sendButton').addEventListener('click', function() {
+            const messageInput = document.getElementById('messageInput');
+            const userName = document.getElementById('userName').value || 'Usuario';
+            const countryFlag = document.getElementById('countryFlag').value || '';
+
+            if (messageInput.value.trim()) {
+                const messageData = {
+                    name: userName,
+                    flag: countryFlag,
+                    text: messageInput.value
+                };
+
+                const newMessageKey = ref(database, 'messages').push().key;
+                set(ref(database, 'messages/' + newMessageKey), messageData)
+                    .then(() => {
+                        messageInput.value = ''; // Limpiar entrada
+                    })
+                    .catch((error) => {
+                        console.error("Error escribiendo el mensaje: ", error);
+                    });
+            }
+        });
+
+        // Recibir mensajes
+        const chatBox = document.getElementById('chatBox');
+        onChildAdded(ref(database, 'messages'), (snapshot) => {
+            const message = snapshot.val();
+            const messageElement = document.createElement('div');
+            messageElement.textContent = `${message.flag} ${message.name}: ${message.text}`;
+            chatBox.appendChild(messageElement);
+            chatBox.scrollTop = chatBox.scrollHeight; // Desplazar hacia abajo
+        });
+    </script>
 </head>
 <body>
     <div class="chat-container">
@@ -86,46 +94,5 @@
             <option value="🇨🇴">Colombia</option>
         </select>
     </div>
-    <script>
-        const firebaseConfig = {
-            apiKey: "AIzaSyB5du0ZYBobhfVSMaz-3SlUj-_iBew8Q8E",
-            authDomain: "chat-zx.firebaseapp.com",
-            databaseURL: "https://chat-zx-default-rtdb.firebaseio.com",
-            projectId: "chat-zx",
-            storageBucket: "chat-zx.appspot.com",
-            messagingSenderId: "795455779249",
-            appId: "1:795455779249:web:d3ba5b50e2cce5ea9c4d90",
-            measurementId: "G-ES3HJKEMT1"
-        };
-
-        const app = firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
-
-        const chatBox = document.getElementById('chatBox');
-        database.ref('messages').on('child_added', (snapshot) => {
-            const message = snapshot.val();
-            const messageElement = document.createElement('div');
-            messageElement.textContent = `${message.flag} ${message.name}: ${message.text}`;
-            chatBox.appendChild(messageElement);
-            chatBox.scrollTop = chatBox.scrollHeight; // Desplazar hacia abajo
-        });
-
-        document.getElementById('sendButton').addEventListener('click', function() {
-            const messageInput = document.getElementById('messageInput');
-            const userName = document.getElementById('userName').value || 'Usuario';
-            const countryFlag = document.getElementById('countryFlag').value || '';
-
-            if (messageInput.value.trim()) {
-                const messageData = {
-                    name: userName,
-                    flag: countryFlag,
-                    text: messageInput.value
-                };
-
-                database.ref('messages').push(messageData);
-                messageInput.value = '';
-            }
-        });
-    </script>
 </body>
 </html>
