@@ -71,6 +71,9 @@
         .post-header .username {
             font-weight: bold;
         }
+        .post-header .verified {
+            color: blue;
+        }
         .post-header .username::after {
             content: "✔";
             color: blue;
@@ -132,7 +135,7 @@
     <!-- Header -->
     <header>
         <div class="logo">
-            <img src="https://th.bing.com/th/id/OIG3.XNe6mLhegp_BpHwZwZT6?pid=ImgGn" alt="Logo">
+            <img src="https://th.bing.com/th/id/OIG3.XNe6mLhegp_BpHwZwZT6?pid=ImgGn">
             <h1>Nombre de la Página</h1>
         </div>
         <input type="text" placeholder="Buscar por título..." class="search-bar">
@@ -144,14 +147,14 @@
         <!-- Publicación 1 -->
         <div class="post">
             <div class="post-header">
-                <img src="https://th.bing.com/th/id/OIG3.XNe6mLhegp_BpHwZwZT6?pid=ImgGn"
+                <img src="usuario1.jpg">
                 <span class="username">Usuario1</span>
             </div>
             <div class="post-content">
                 <p>¡Este es un ejemplo de publicación!</p>
                 
                 <!-- Imagen desde URL -->
-                <img src="https://via.placeholder.com/600x300" alt="">
+                <img src="https://www.example.com/imagen.jpg">
                 
                 <!-- Video incrustado desde YouTube -->
                 <iframe src="https://www.youtube.com/embed/tgbNymZ7vqY" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
@@ -159,17 +162,29 @@
                 <!-- Enlace externo -->
                 <p><a href="https://www.ejemplo.com" target="_blank">Visita este enlace</a></p>
             </div>
+            <div class="comments">
+                <button onclick="mostrarComentario(this)">Ver comentarios</button>
+                <div class="comentarios" style="display:none;">
+                    <div class="comment">
+                        <div class="comment-header">
+                            <img src="usuario2.jpg">
+                            <span class="username">Usuario2</span>
+                        </div>
+                        <p>¡Muy interesante este post!</p>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Publicación 2 (con diferentes imágenes, texto, video y enlace) -->
         <div class="post">
             <div class="post-header">
-                <img src="https://via.placeholder.com/30" alt="">
+                <img src="usuario2.jpg">
                 <span class="username">Usuario2</span>
             </div>
             <div class="post-content">
                 <p>Otro ejemplo de publicación con una imagen desde una URL:</p>
-                <img src="https://via.placeholder.com/600x300" alt="">
+                <img src="https://www.example2.com/imagen.jpg">
                 <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                 <p><a href="https://www.otro-enlace.com" target="_blank">Visita otro enlace</a></p>
             </div>
