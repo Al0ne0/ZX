@@ -71,6 +71,15 @@
         .post-header .username {
             font-weight: bold;
         }
+        .post-header .verified {
+            color: blue;
+        }
+        .post-header .username::after {
+            content: "✔";
+            color: blue;
+            font-size: 16px;
+            margin-left: 5px;
+        }
         .post-content {
             margin-top: 10px;
         }
@@ -90,6 +99,20 @@
             border-radius: 5px;
             box-shadow: 0 0 5px rgba(0,0,0,0.1);
         }
+        .comment-header {
+            display: flex;
+            align-items: center;
+        }
+        .comment-header img {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .comment-header .username {
+            font-weight: bold;
+        }
+        /* Navegador inferior */
         .nav-bar {
             background-color: #0099cc;
             color: white;
@@ -105,28 +128,9 @@
             margin: 0 15px;
             font-size: 18px;
         }
-        /* Estilo para el banner de AdMob */
-        .admob-banner {
-            display: block;
-            text-align: center;
-            margin: 20px 0;
-        }
     </style>
-    <script>
-        function mostrarComentario(button) {
-            const comentarios = button.parentElement.querySelector(".comentarios");
-            comentarios.style.display = (comentarios.style.display === "none") ? "block" : "none";
-        }
-    </script>
-    <!-- AdMob SDK -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/r20190520/richmedia/multi_ads.js"></script>
-    <script>
-        function initAdMob() {
-            // Configura AdMob aquí
-        }
-    </script>
 </head>
-<body onload="initAdMob()">
+<body>
 
     <!-- Header -->
     <header>
@@ -136,11 +140,6 @@
         </div>
         <input type="text" placeholder="Buscar por título..." class="search-bar">
     </header>
-
-    <!-- Banner de AdMob -->
-    <div class="admob-banner">
-        <div id="admob-banner" style="max-width: 100%;"></div>
-    </div>
 
     <!-- Contenedor principal -->
     <div class="container">
@@ -153,8 +152,12 @@
             </div>
             <div class="post-content">
                 <p>¡RUBY SE LE DECLARA A WEST🔥!</p>
-                <iframe src="https://drive.google.com/file/d/1Qyr5RegwCXD5FZPtRtS6WCBZQ3GMiHDo/preview" frameborder="0" width="640" height="360" allowfullscreen></iframe>
+            
+                <!-- Video incrustado desde YouTube -->
+                <iframe src="https://drive.google.com/file/d/1Qyr5RegwCXD5FZPtRtS6WCBZQ3GMiHDo/preview" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" width="640" height="360" allowfullscreen></iframe>
+
             </div>
+<!-- comentarios -->
             <div class="comments">
                 <button onclick="mostrarComentario(this)">Ver comentarios</button>
                 <div class="comentarios" style="display:none;">
@@ -168,8 +171,7 @@
                 </div>
             </div>
         </div>
-
-        <!-- Publicación 2 -->
+        <!-- Publicación 2 (con diferentes imágenes, texto, video y enlace) -->
         <div class="post">
             <div class="post-header">
                 <img src="https://th.bing.com/th/id/OIG3.XNe6mLhegp_BpHwZwZT6?pid=ImgGn">
@@ -177,8 +179,12 @@
             </div>
             <div class="post-content">
                 <p>¡MUERE RUBY OTRA VEZ,WESCOL DE SE PONE MAL💔!</p>
-                <iframe src="https://drive.google.com/file/d/1RDfYS9-rI5L6dONN5XiuMWZFG9DHO2ra/preview" frameborder="0" width="640" height="360" allowfullscreen></iframe>
+            
+                <!-- Video incrustado desde YouTube -->
+                <iframe src="https://drive.google.com/file/d/1RDfYS9-rI5L6dONN5XiuMWZFG9DHO2ra/preview" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" width="640" height="360" allowfullscreen></iframe>
+
             </div>
+<!-- comentarios -->
             <div class="comments">
                 <button onclick="mostrarComentario(this)">Ver comentarios</button>
                 <div class="comentarios" style="display:none;">
@@ -192,8 +198,7 @@
                 </div>
             </div>
         </div>
-
-        <!-- Publicación 3 -->
+   <!-- Publicación 3-->
         <div class="post">
             <div class="post-header">
                 <img src="https://th.bing.com/th/id/OIG3.XNe6mLhegp_BpHwZwZT6?pid=ImgGn">
@@ -202,7 +207,8 @@
             <div class="post-content">
                 <p>¡DE TODO UN POCO 🔥❤️ , AQUÍ ESTAREMOS SUBIENDO CONTENIDO VARIADO,YA SEAN PELÍCULAS,CHISMES, 
 VIDEOS, IMAGENES, COMENTARIOS ETC..PREPARADOS!!!!!!</p>
-            </div>
+            
+              <!-- comentarios -->
             <div class="comments">
                 <button onclick="mostrarComentario(this)">Ver comentarios</button>
                 <div class="comentarios" style="display:none;">
@@ -216,12 +222,18 @@ VIDEOS, IMAGENES, COMENTARIOS ETC..PREPARADOS!!!!!!</p>
                 </div>
             </div>
         </div>
-    </div>
-
     <!-- Barra de navegación inferior -->
     <div class="nav-bar">
         <a href="#inicio">INICIO</a>
+        <!-- Puedes agregar más enlaces aquí -->
     </div>
+
+    <script>
+        function mostrarComentario(button) {
+            const comentarios = button.parentElement.querySelector(".comentarios");
+            comentarios.style.display = (comentarios.style.display === "none") ? "block" : "none";
+        }
+    </script>
 
 </body>
 </html>
