@@ -289,6 +289,8 @@
         <!-- Puedes agregar más enlaces aquí -->
     </div>
 
+    <!-- Incluye el script correctamente -->
+    <script>
         function mostrarComentario(button) {
             const comentarios = button.parentElement.querySelector(".comentarios");
             comentarios.style.display = (comentarios.style.display === "none") ? "block" : "none";
@@ -298,7 +300,7 @@
             const input = document.getElementById('searchInput');
             const filter = input.value.toLowerCase();
             const postContainer = document.getElementById('postContainer');
-            const posts =postContainer.getElementsByClassName('post');
+            const posts = postContainer.getElementsByClassName('post');
 
             for (let i = 0; i < posts.length; i++) {
                 const postContent = posts[i].getElementsByClassName('post-content')[0].textContent || posts[i].getElementsByClassName('post-content')[0].innerText;
