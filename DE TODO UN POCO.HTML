@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Foro - INICIO</title>
+    <title>De Todo Un Poco</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,376 +13,125 @@
             padding: 0;
         }
         header {
-            background-color: #0099cc; /* Azul suave */
+            background-color: #6c5ce7;
             color: white;
             padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .logo {
-            display: flex;
-            align-items: center;
-        }
-        .logo img {
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-        }
-        .logo h1 {
-            margin: 0;
-            font-size: 24px;
-            margin-left: 10px;
-        }
-        .search-bar {
-            margin: 20px;
-            display: flex;
-            justify-content: center;
-        }
-        .search-bar input {
-            width: 180px;
-            padding: 14px;
-            border: 2px solid #0099cc;
-            border-radius: 20px;
-            font-size: 16px;
+            text-align: center;
         }
         .container {
-            max-width: 900px;
-            margin: 0 auto;
+            max-width: 800px;
+            margin: 20px auto;
             padding: 20px;
         }
-        .post {
-            background-color: white;
-            border: 1px solid #ccc;
-            padding: 15px;
+        .search-bar {
             margin-bottom: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
         }
-        .post-header {
+        .search-bar input {
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .search-bar button {
+            padding: 10px 15px;
+            background-color: #6c5ce7;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .post {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            padding: 16px;
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .post .author {
+            font-weight: bold;
             display: flex;
             align-items: center;
         }
-        .post-header img {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
-        .post-header .username {
-            font-weight: bold;
-        }
-        .post-header .verified {
-            color: blue;
-        }
-        .post-header .username::after {
-            content: "✔";
-            color: blue;
-            font-size: 16px;
+        .post .author i {
+            color: #3498db;
             margin-left: 5px;
         }
-        .post-content {
-            margin-top: 10px;
+        .post p {
+            margin: 10px 0;
         }
-        .post-content img, .post-content iframe {
-            max-width: 100%;
-            margin-top: 10px;
-        }
-        .comments {
-            margin-top: 20px;
-            padding-top: 10px;
-            border-top: 1px solid #ddd;
-        }
-        .comment {
-            margin-top: 10px;
-            padding: 10px;
-            background-color: #f9f9f9;
-            border-radius: 5px;
-            box-shadow: 0 0 5px rgba(0,0,0,0.1);
-        }
-        .comment-header {
-            display: flex;
-            align-items: center;
-        }
-        .comment-header img {
-            width: 20px;
-            height: 20px;
+        .delete-post {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
             border-radius: 50%;
-            margin-right: 8px;
+            padding: 8px;
+            cursor: pointer;
         }
-        .comment-header .username {
-            font-weight: bold;
-        }
-        /* Navegador inferior */
-        .nav-bar {
-            background-color: #0099cc;
-            color: white;
-            padding: 10px;
-            text-align: center;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-        .nav-bar a {
-            color: white;
-            text-decoration: none;
-            margin: 0 15px;
-            font-size: 18px;
+        .delete-post:hover {
+            background-color: #c0392b;
         }
     </style>
 </head>
 <body>
-
-    <!-- Header -->
     <header>
-        <div class="logo">
-            <img src="https://th.bing.com/th/id/OIG3.XNe6mLhegp_BpHwZwZT6?pid=ImgGn">
-            <h1>DE TODO UN POCO</h1>
-        </div>
-        <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Buscar por título..." oninput="filtrarPosts()">
-        </div>
+        <h1>De Todo Un Poco</h1>
     </header>
-
-    <!-- Contenedor principal -->
-    <div class="container" id="postContainer">
-       
-        <!-- Publicación 1 -->
-        <div class="post">
-            <div class="post-header">
-                <img src="https://th.bing.com/th/id/OIG3.XNe6mLhegp_BpHwZwZT6?pid=ImgGn">
-                <span class="username">ALONE</span>
-            </div>
-            <div class="post-content">
-                <p>¡RUBY SE LE DECLARA A WEST🔥!</p>
-                <iframe src="https://drive.google.com/file/d/1Qyr5RegwCXD5FZPtRtS6WCBZQ3GMiHDo/preview" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" width="640" height="360" allowfullscreen></iframe>
-            </div>
-            <div class="comments">
-                <button onclick="mostrarComentario(this)">Ver comentarios</button>
-                <div class="comentarios" style="display:none;">
-                    <div class="comment">
-                        <div class="comment-header">
-                            <img src="https://th.bing.com/th/id/OIG3.XNe6mLhegp_BpHwZwZT6?pid=ImgGn">
-                            <span class="username">ALONE</span>
-                        </div>
-                        <p>CUAL ES ÉSA? 😂</p>
-                    </div>
-                </div>
-            </div>
+    <div class="container">
+        <div class="search-bar">
+            <input type="text" id="search" placeholder="Buscar por texto o nombre de usuario...">
+            <button onclick="filterPosts()">Buscar</button>
         </div>
-
-        <!-- Publicación 2 -->
-        <div class="post">
-            <div class="post-header">
-                <img src="https://th.bing.com/th/id/OIG3.XNe6mLhegp_BpHwZwZT6?pid=ImgGn">
-                <span class="username">ALONE</span>
-            </div>
-            <div class="post-content">
-                <p>¡MUERE RUBY OTRA VEZ,WESCOL DE SE PONE MAL💔!</p>
-                <iframe src="https://drive.google.com/file/d/1RDfYS9-rI5L6dONN5XiuMWZFG9DHO2ra/preview" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" width="640" height="360" allowfullscreen></iframe>
-            </div>
-            <div class="comments">
-                <button onclick="mostrarComentario(this)">Ver comentarios</button>
-                <div class="comentarios" style="display:none;">
-                    <div class="comment">
-                        <div class="comment-header">
-                            <img src="https://th.bing.com/th/id/OIG3.XNe6mLhegp_BpHwZwZT6?pid=ImgGn">
-                            <span class="username">ALONE</span>
-                        </div>
-                        <p>COMO LE VAS A GRITAR ASÍ A NUTRÍA 23😔</p>
-                    </div>
+        <div id="posts">
+            <!-- Aquí se generarán las publicaciones -->
+            <div class="post">
+                <div class="author">
+                    <span>Alone</span>
+                    <i class="fas fa-check-circle"></i>
                 </div>
+                <p>Heiver</p>
+                <button class="delete-post" onclick="deletePost(this)">
+                    <i class="fas fa-trash"></i>
+                </button>
             </div>
-        </div>
-
-        <!-- Publicación 3 -->
-        <div class="post">
-            <div class="post-header">
-                <img src="https://th.bing.com/th/id/OIG3.XNe6mLhegp_BpHwZwZT6?pid=ImgGn">
-                <span class="username">ALONE</span>
-            </div>
-            <div class="post-content">
-                <p>¡DE TODO UN POCO 🔥❤️ , AQUÍ ESTAREMOS SUBIENDO CONTENIDO VARIADO,YA SEAN PELÍCULAS,CHISMES, VIDEOS, IMAGENES, COMENTARIOS ETC..PREPARADOS!!!!!!</p>
-            </div>
-            <div class="comments">
-                <button onclick="mostrarComentario(this)">Ver comentarios</button>
-                <div class="comentarios" style="display:none;">
-                    <div class="comment">
-                        <div class="comment-header">
-                            <img src="https://th.bing.com/th/id/OIG3.XNe6mLhegp_BpHwZwZT6?pid=ImgGn">
-                            <span class="username">ALONE</span>
-                        </div>
-                        <p>LOS CHISMOSOS SIEMPRE VEN LOS COMENTARIOS 😜</p>
-                    </div>
+            <div class="post">
+                <div class="author">
+                    <span>Usuario2</span>
                 </div>
+                <p>Texto de ejemplo</p>
+                <button class="delete-post" onclick="deletePost(this)">
+                    <i class="fas fa-trash"></i>
+                </button>
             </div>
         </div>
     </div>
-
-<!-----DESCARGAR APP----->
-<div class="post">
-    <div class="post-header">
-        <img src="https://th.bing.com/th/id/OIG3.XNe6mLhegp_BpHwZwZT6?pid=ImgGn">
-        <span class="username">ALONE</span>
-    </div>
-    <div class="post-content">
-        <p>DISFRUTA DE NUESTRA APP
-      DTUP DISPONIBLE ⬇️</p>
-    </div>
-    <div class="comments">
-        <button onclick="mostrarComentario(this)">Ver comentarios</button>
-        <div class="comentarios" style="display:none;">
-            <div class="comment">
-                <div class="comment-header">
-                    <img src="https://th.bing.com/th/id/OIG3.XNe6mLhegp_BpHwZwZT6?pid=ImgGn">
-                    <span class="username">ALONE</span>
-                </div>
-                <p>DISFRUTA NUESTRA APP!🔥</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Aquí se añade el botón de descarga de la aplicación -->
-    <div class="download-app">
-        <h1>DESCARGA NUESTRA APP</h1>
-        <p>Y DISFRUTA DE CONTENIDO GRATUÍTO</p>
-        <a href="https://www.mediafire.com/file/7zka5b6o29qkwhr/com.my.newproject2-1.apk/file" class="download-btn">Descargar aplicación DTUP</a>
-    </div>
-</div>
-
-<!-- Estilos para el botón de descarga -->
-<style>
-    .download-app {
-        text-align: center;
-        margin-top: 20px;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-    .download-app h1 {
-        color: #333;
-        font-size: 24px;
-    }
-    .download-app p {
-        font-size: 16px;
-        color: #666;
-        margin-bottom: 20px;
-    }
-    .download-btn {
-        background-color: #ff5722;
-        color: white;
-        padding: 15px 30px;
-        font-size: 18px;
-        text-transform: uppercase;
-        text-decoration: none;
-        border-radius: 50px;
-        box-shadow: 0 5px 15px rgba(255, 87, 34, 0.4);
-        transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    }
-    .download-btn:hover {
-        background-color: #e64a19;
-        box-shadow: 0 8px 20px rgba(255, 87, 34, 0.6);
-    }
-</style>
-
- <!-- MINECRAFT V1.21.31-->
-     
-       <div class="post">
-    <div class="post-header">
-        <img src="https://th.bing.com/th/id/OIG3.XNe6mLhegp_BpHwZwZT6?pid=ImgGn">
-        <span class="username">ALONE</span>
-    </div>
-    <div class="post-content">
-        <p>MINECRAFT V1.21.31 APK</p>
-    </div>
-    <div class="comments">
-        <button onclick="mostrarComentario(this)">Ver comentarios</button>
-        <div class="comentarios" style="display:none;">
-            <div class="comment">
-                <div class="comment-header">
-                    <img src="https://th.bing.com/th/id/OIG3.XNe6mLhegp_BpHwZwZT6?pid=ImgGn">
-                    <span class="username">ALONE</span>
-                </div>
-                <p>EL LINK ES DIRECTO A MEDIAFIRE ,POR SI LAS DUDAS!!</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Aquí se añade el botón de descarga de la aplicación -->
-    <div class="download-app">
-        <h1>MINECRAFT 1.21.31 APK</h1>
-        <p>Y DISFRUTA DE CONTENIDO GRATUÍTO</p>
-        <a href="https://www.mediafire.com/file/wo576hg47ei1f7w/Minecraft.apk.zip/file" class="download-btn">Descargar APK </a>
-    </div>
-</div>
-
-<!-- Estilos para el botón de descarga -->
-<style>
-    .download-app {
-        text-align: center;
-        margin-top: 20px;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-    .download-app h1 {
-        color: #333;
-        font-size: 24px;
-    }
-    .download-app p {
-        font-size: 16px;
-        color: #666;
-        margin-bottom: 20px;
-    }
-    .download-btn {
-        background-color: #ff5722;
-        color: white;
-        padding: 15px 30px;
-        font-size: 18px;
-        text-transform: uppercase;
-        text-decoration: none;
-        border-radius: 50px;
-        box-shadow: 0 5px 15px rgba(255, 87, 34, 0.4);
-        transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    }
-    .download-btn:hover {
-        background-color: #e64a19;
-        box-shadow: 0 8px 20px rgba(255, 87, 34, 0.6);
-    }
-</style>
-
-                  
-    <!-- Barra de navegación inferior -->
-    <div class="nav-bar">
-        <a href="#inicio">INICIO</a>
-        <!-- Puedes agregar más enlaces aquí -->
-    </div>
-
-    <!-- Incluye el script correctamente -->
     <script>
-        function mostrarComentario(button) {
-            const comentarios = button.parentElement.querySelector(".comentarios");
-            comentarios.style.display = (comentarios.style.display === "none") ? "block" : "none";
+        // Función para eliminar publicaciones
+        function deletePost(button) {
+            button.parentElement.remove();
         }
 
-        function filtrarPosts() {
-            const input = document.getElementById('searchInput');
-            const filter = input.value.toLowerCase();
-            const postContainer = document.getElementById('postContainer');
-            const posts = postContainer.getElementsByClassName('post');
+        // Función para filtrar publicaciones
+        function filterPosts() {
+            const searchValue = document.getElementById('search').value.toLowerCase();
+            const posts = document.querySelectorAll('.post');
 
-            for (let i = 0; i < posts.length; i++) {
-                const postContent = posts[i].getElementsByClassName('post-content')[0].textContent || posts[i].getElementsByClassName('post-content')[0].innerText;
-                if (postContent.toLowerCase().indexOf(filter) > -1) {
-                    posts[i].style.display = "";
+            posts.forEach(post => {
+                const author = post.querySelector('.author span').textContent.toLowerCase();
+                const text = post.querySelector('p').textContent.toLowerCase();
+                
+                if (author.includes(searchValue) || text.includes(searchValue)) {
+                    post.style.display = 'block';
                 } else {
-                    posts[i].style.display = "none";
+                    post.style.display = 'none';
                 }
-            }
+            });
         }
     </script>
-
 </body>
 </html>
