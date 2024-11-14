@@ -62,6 +62,17 @@
         .post p, .post iframe, .post img {
             margin: 10px 0;
         }
+        .post button {
+            padding: 8px 12px;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .post button:hover {
+            background-color: #2ecc71;
+        }
         .save-post {
             position: absolute;
             top: 10px;
@@ -75,20 +86,6 @@
         }
         .save-post:hover {
             background-color: #2ecc71;
-        }
-        .delete-post {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: #e74c3c;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            padding: 8px;
-            cursor: pointer;
-        }
-        .delete-post:hover {
-            background-color: #c0392b;
         }
         #saved-posts {
             display: none;
@@ -118,22 +115,36 @@
             <button onclick="filterPosts()">Buscar</button>
         </div>
         <div id="posts">
-            <!-- Aquí se generarán las publicaciones -->
+            <!-- Ejemplo de publicaciones con contenido variado -->
             <div class="post">
                 <div class="author">
-                    <img src="https://www.bing.com/images/create/un-logo-de-un-gato-malc3a9fico-y-un-fondo-rojo/1-6733bad6cd944c7288c0ebdfce38499d?id=Pz9PMXn0socet4RmoOxWPw.Iveqtl5lS7JwldiMy%2FIR8w&amp;view=detailv2&amp;idpp=genimg&amp;noidpclose=1&amp;thid=OIG2.HThNMgpwu8EFBwtjdOnA&amp;skey=4up38yUhsowHY15oWrbby_msvZ7VqP_iQTKlA2Q-3TU&amp;form=SYDBIC&amp;ssp=1&amp;darkschemeovr=1&amp;safesearch=moderate&amp;setlang=es-mx&amp;cc=XL&amp;pc=SANSAAND" alt="Foto de perfil" class="w-10 h-10 rounded-full mr-4">
-                    <h3 class="text-lg font-bold flex items-center">
-                        Alone 
-                        <i class="fas fa-check-circle text-blue-500 ml-2"></i>
-                    </h3>
+                    <img src="https://www.example.com/perfil.jpg" alt="Foto de perfil" class="w-10 h-10 rounded-full mr-4">
+                    <span>Alone</span>
+                    <i class="fas fa-check-circle"></i>
                 </div>
-                <p class="text-gray-700 mb-4">Hola gente!</p>
-                <p class="text-sm text-gray-500 mb-4">Publicado el 14/11/2024, 5:41:21 p.m.</p>
-                <img src="https://www.bing.com/images/create/un-logo-de-un-gato-malc3a9fico-y-un-fondo-rojo/1-6733bad6cd944c7288c0ebdfce38499d?id=Pz9PMXn0socet4RmoOxWPw.Iveqtl5lS7JwldiMy%2FIR8w&amp;view=detailv2&amp;idpp=genimg&amp;noidpclose=1&amp;thid=OIG2.HThNMgpwu8EFBwtjdOnA&amp;skey=4up38yUhsowHY15oWrbby_msvZ7VqP_iQTKlA2Q-3TU&amp;form=SYDBIC&amp;ssp=1&amp;darkschemeovr=1&amp;safesearch=moderate&amp;setlang=es-mx&amp;cc=XL&amp;pc=SANSAAND" alt="Imagen" class="w-full h-40 object-cover mb-4">
-                <a href="https://via.placeholder.com/40" target="_blank" class="bg-blue-500 text-white font-bold py-2 px-4 rounded-full hover:bg-blue-600">
-                    Descarga
-                </a>
-                <button class="delete-post" onclick="deletePost(this)">Eliminar publicación</button>
+                <p>Esta es una publicación con texto simple y una imagen:</p>
+                <img src="https://www.example.com/imagen.jpg" alt="Imagen ejemplo" width="100%">
+                <p>¡Mira este video interesante!</p>
+                <iframe src="https://www.youtube.com/embed/example_video_id" width="100%" height="315" frameborder="0" allowfullscreen></iframe>
+                <button onclick="window.location.href='https://www.example.com'">Visita el sitio</button>
+                <button class="save-post" onclick="savePost(this)">
+                    <i class="fas fa-bookmark"></i> Guardar
+                </button>
+            </div>
+            <!-- Otra publicación con enlaces -->
+            <div class="post">
+                <div class="author">
+                    <img src="https://www.example.com/perfil2.jpg" alt="Foto de perfil" class="w-10 h-10 rounded-full mr-4">
+                    <span>Juanito</span>
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <p>Esta publicación tiene un enlace directo:</p>
+                <button onclick="window.location.href='https://www.example.com/page'">Ir a página</button>
+                <p>Y aquí hay un video incrustado desde una URL:</p>
+                <iframe src="https://www.youtube.com/embed/example_video_id2" width="100%" height="315" frameborder="0" allowfullscreen></iframe>
+                <button class="save-post" onclick="savePost(this)">
+                    <i class="fas fa-bookmark"></i> Guardar
+                </button>
             </div>
         </div>
         <button class="toggle-saved" onclick="toggleSavedPosts()">Ver Publicaciones Guardadas</button>
@@ -143,25 +154,26 @@
     </div>
 
     <script>
+        // Almacena las publicaciones guardadas
         const savedPosts = [];
 
-        function deletePost(button) {
-            const post = button.parentElement;
-            post.remove();
+        // Función para eliminar publicaciones duplicadas
+        function isDuplicate(postHTML) {
+            return savedPosts.some(saved => saved === postHTML);
         }
 
+        // Función para guardar publicaciones
         function savePost(button) {
             const post = button.parentElement;
             const postHTML = post.outerHTML;
 
-            // Evitar publicaciones duplicadas
-            if (!savedPosts.includes(postHTML)) {
+            if (!isDuplicate(postHTML)) {
                 savedPosts.push(postHTML);
 
                 const savedContainer = document.getElementById('saved-posts');
                 const savedPost = document.createElement('div');
                 savedPost.innerHTML = postHTML;
-                savedPost.querySelector('.delete-post').remove(); // Eliminar el botón de eliminar
+                savedPost.querySelector('.save-post').remove(); // Elimina el botón de guardar
                 savedContainer.appendChild(savedPost);
                 alert('Publicación guardada.');
             } else {
@@ -169,11 +181,13 @@
             }
         }
 
+        // Función para mostrar/ocultar publicaciones guardadas
         function toggleSavedPosts() {
             const savedSection = document.getElementById('saved-posts');
             savedSection.style.display = savedSection.style.display === 'none' ? 'block' : 'none';
         }
 
+        // Función para filtrar publicaciones
         function filterPosts() {
             const searchValue = document.getElementById('search').value.toLowerCase();
             const posts = document.querySelectorAll('.post');
