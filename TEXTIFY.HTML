@@ -1,0 +1,318 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor de Texto</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></link>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .font-roboto { font-family: 'Roboto', sans-serif; }
+        .color-picker {
+            display: none;
+            position: absolute;
+            z-index: 10;
+            background: white;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .editor-container {
+            overflow: auto;
+        }
+        .editor-page {
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-roboto">
+    <div class="container mx-auto p-4">
+        <div class="bg-white shadow-md rounded-lg p-4">
+            <div class="flex justify-between items-center mb-4">
+                <div class="flex space-x-2">
+                    <button id="saveBtn" class="p-2 bg-gray-200 rounded hover:bg-gray-300"><i class="fas fa-save"></i></button>
+                    <button id="printBtn" class="p-2 bg-gray-200 rounded hover:bg-gray-300"><i class="fas fa-print"></i></button>
+                    <button id="addPageBtn" class="p-2 bg-gray-200 rounded hover:bg-gray-300"><i class="fas fa-plus"></i></button>
+                    <button id="adjustSizeBtn" class="p-2 bg-gray-200 rounded hover:bg-gray-300"><i class="fas fa-arrows-alt"></i></button>
+                    <button id="saveProjectBtn" class="p-2 bg-gray-200 rounded hover:bg-gray-300"><i class="fas fa-folder-plus"></i></button>
+                    <button id="showProjectsBtn" class="p-2 bg-gray-200 rounded hover:bg-gray-300"><i class="fas fa-folder-open"></i></button>
+                    <button id="saveChangesBtn" class="p-2 bg-gray-200 rounded hover:bg-gray-300"><i class="fas fa-save"></i> Guardar Cambios</button>
+                </div>
+            </div>
+            <div class="flex flex-wrap mb-4 space-x-2">
+                <div class="flex space-x-2 mb-2">
+                    <button onclick="document.execCommand('bold')" class="p-2 bg-gray-200 rounded hover:bg-gray-300"><i class="fas fa-bold"></i></button>
+                    <button onclick="document.execCommand('italic')" class="p-2 bg-gray-200 rounded hover:bg-gray-300"><i class="fas fa-italic"></i></button>
+                    <button onclick="document.execCommand('underline')" class="p-2 bg-gray-200 rounded hover:bg-gray-300"><i class="fas fa-underline"></i></button>
+                    <button onclick="document.execCommand('strikeThrough')" class="p-2 bg-gray-200 rounded hover:bg-gray-300"><i class="fas fa-strikethrough"></i></button>
+                </div>
+                <div class="flex space-x-2 mb-2">
+                    <button onclick="document.execCommand('justifyLeft')" class="p-2 bg-gray-200 rounded hover:bg-gray-300"><i class="fas fa-align-left"></i></button>
+                    <button onclick="document.execCommand('justifyCenter')" class="p-2 bg-gray-200 rounded hover:bg-gray-300"><i class="fas fa-align-center"></i></button>
+                    <button onclick="document.execCommand('justifyRight')" class="p-2 bg-gray-200 rounded hover:bg-gray-300"><i class="fas fa-align-right"></i></button>
+                    <button onclick="document.execCommand('justifyFull')" class="p-2 bg-gray-200 rounded hover:bg-gray-300"><i class="fas fa-align-justify"></i></button>
+                </div>
+                <div class="flex space-x-2 mb-2">
+                    <button onclick="document.execCommand('insertUnorderedList')" class="p-2 bg-gray-200 rounded hover:bg-gray-300"><i class="fas fa-list-ul"></i></button>
+                    <button onclick="document.execCommand('insertOrderedList')" class="p-2 bg-gray-200 rounded hover:bg-gray-300"><i class="fas fa-list-ol"></i></button>
+                    <button onclick="document.execCommand('indent')" class="p-2 bg-gray-200 rounded hover:bg-gray-300"><i class="fas fa-indent"></i></button>
+                    <button onclick="document.execCommand('outdent')" class="p-2 bg-gray-200 rounded hover:bg-gray-300"><i class="fas fa-outdent"></i></button>
+                </div>
+                <div class="flex space-x-2 mb-2">
+                    <select id="fontSelect" class="p-2 bg-gray-200 rounded hover:bg-gray-300">
+                        <option value="Arial">Arial</option>
+                    </select>
+                    <select id="fontSizeSelect" class="p-2 bg-gray-200 rounded hover:bg-gray-300">
+                        <option value="1">8pt</option>
+                        <option value="2">10pt</option>
+                        <option value="3">12pt</option>
+                        <option value="4">14pt</option>
+                        <option value="5">18pt</option>
+                        <option value="6">24pt</option>
+                        <option value="7">36pt</option>
+                    </select>
+                    <button id="colorPickerBtn" class="p-2 bg-gray-200 rounded hover:bg-gray-300"><i class="fas fa-palette"></i></button>
+                    <div id="colorPicker" class="color-picker">
+                        <div class="flex space-x-2 mb-2">
+                            <div class="w-6 h-6 bg-red-500 cursor-pointer" onclick="setColor('#ff0000')"></div>
+                            <div class="w-6 h-6 bg-green-500 cursor-pointer" onclick="setColor('#00ff00')"></div>
+                            <div class="w-6 h-6 bg-blue-500 cursor-pointer" onclick="setColor('#0000ff')"></div>
+                            <div class="w-6 h-6 bg-yellow-500 cursor-pointer" onclick="setColor('#ffff00')"></div>
+                            <div class="w-6 h-6 bg-purple-500 cursor-pointer" onclick="setColor('#800080')"></div>
+                            <div class="w-6 h-6 bg-pink-500 cursor-pointer" onclick="setColor('#ff69b4')"></div>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="color" id="customColorPicker" class="p-2 bg-gray-200 rounded hover:bg-gray-300">
+                            <button onclick="setColor(document.getElementById('customColorPicker').value)" class="ml-2 p-2 bg-gray-200 rounded hover:bg-gray-300">Personalizado</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex space-x-2 mb-2">
+                    <button onclick="document.execCommand('createLink', false, prompt('Enter a URL:'))" class="p-2 bg-gray-200 rounded hover:bg-gray-300"><i class="fas fa-link"></i></button>
+                    <button onclick="document.execCommand('unlink')" class="p-2 bg-gray-200 rounded hover:bg-gray-300"><i class="fas fa-unlink"></i></button>
+                    <button onclick="document.execCommand('insertImage', false, prompt('Enter an image URL:'))" class="p-2 bg-gray-200 rounded hover:bg-gray-300"><i class="fas fa-image"></i></button>
+                    <button onclick="document.execCommand('insertTable', false, prompt('Enter table dimensions (e.g., 3x3):'))" class="p-2 bg-gray-200 rounded hover:bg-gray-300"><i class="fas fa-table"></i></button>
+                </div>
+                <div class="flex space-x-2 mb-2">
+                    <input type="file" id="fontUpload" class="hidden" accept=".ttf,.otf">
+                    <button onclick="document.getElementById('fontUpload').click()" class="p-2 bg-gray-200 rounded hover:bg-gray-300"><i class="fas fa-upload"></i> Importar Fuente</button>
+                </div>
+                <div class="flex space-x-2 mb-2">
+                    <button onclick="document.execCommand('undo')" class="p-2 bg-gray-200 rounded hover:bg-gray-300"><i class="fas fa-undo"></i></button>
+                    <button onclick="document.execCommand('redo')" class="p-2 bg-gray-200 rounded hover:bg-gray-300"><i class="fas fa-redo"></i></button>
+                </div>
+            </div>
+            <div class="editor-container border p-4 rounded-lg bg-gray-50">
+                <div id="editor" contenteditable="true" class="editor-page w-full h-96 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    Escribe tu texto aquí...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentFont = 'Arial';
+        let currentFontSize = '3';
+        let currentColor = '#000000';
+        let projects = JSON.parse(localStorage.getItem('projects')) || [];
+        let currentProjectIndex = null;
+
+        document.getElementById('fontSelect').addEventListener('change', function() {
+            currentFont = this.value;
+            document.execCommand('fontName', false, currentFont);
+        });
+
+        document.getElementById('fontSizeSelect').addEventListener('change', function() {
+            currentFontSize = this.value;
+            document.execCommand('fontSize', false, currentFontSize);
+        });
+
+        document.getElementById('colorPickerBtn').addEventListener('click', function() {
+            const colorPicker = document.getElementById('colorPicker');
+            colorPicker.style.display = colorPicker.style.display === 'block' ? 'none' : 'block';
+        });
+
+        function setColor(color) {
+            currentColor = color;
+            document.execCommand('foreColor', false, currentColor);
+            document.getElementById('colorPicker').style.display = 'none';
+        }
+
+        document.getElementById('editor').addEventListener('input', function() {
+            document.execCommand('fontName', false, currentFont);
+            document.execCommand('fontSize', false, currentFontSize);
+            document.execCommand('foreColor', false, currentColor);
+        });
+
+        document.getElementById('saveBtn').addEventListener('click', function() {
+            const format = prompt('Elige el formato para guardar (PDF o PNG):').toLowerCase();
+            if (format === 'pdf') {
+                saveAsPDF();
+            } else if (format === 'png') {
+                saveAsPNG();
+            } else {
+                alert('Formato no soportado.');
+            }
+        });
+
+        document.getElementById('printBtn').addEventListener('click', function() {
+            window.print();
+        });
+
+        document.getElementById('addPageBtn').addEventListener('click', function() {
+            const newPage = document.createElement('div');
+            newPage.className = 'editor-page border p-4 rounded-lg bg-gray-50 mt-4';
+            newPage.innerHTML = '<div contenteditable="true" class="w-full h-96 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">Escribe tu texto aquí...</div>';
+            document.querySelector('.editor-container').appendChild(newPage);
+        });
+
+        document.getElementById('fontUpload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const fontFace = new FontFace('CustomFont', e.target.result);
+                    fontFace.load().then(function(loadedFontFace) {
+                        document.fonts.add(loadedFontFace);
+                        const option = document.createElement('option');
+                        option.value = 'CustomFont';
+                        option.text = 'CustomFont';
+                        document.getElementById('fontSelect').add(option);
+                        currentFont = 'CustomFont';
+                        document.execCommand('fontName', false, currentFont);
+                    });
+                };
+                reader.readAsArrayBuffer(file);
+            }
+        });
+
+        function saveAsPDF() {
+            const editorContent = document.getElementById('editor').innerHTML;
+            const doc = new jsPDF();
+            doc.fromHTML(editorContent, 10, 10);
+            doc.save('documento.pdf');
+        }
+
+        function saveAsPNG() {
+            html2canvas(document.getElementById('editor')).then(canvas => {
+                const link = document.createElement('a');
+                link.href = canvas.toDataURL('image/png');
+                link.download = 'documento.png';
+                link.click();
+            });
+        }
+
+        document.getElementById('adjustSizeBtn').addEventListener('click', function() {
+            const size = prompt('Elige el tamaño de la hoja (Carta, Oficio, Personalizado):').toLowerCase();
+            const editor = document.getElementById('editor');
+            if (size === 'carta') {
+                editor.style.width = '8.5in';
+                editor.style.height = '11in';
+            } else if (size === 'oficio') {
+                editor.style.width = '8.5in';
+                editor.style.height = '14in';
+            } else if (size === 'personalizado') {
+                const width = prompt('Introduce el ancho (in):');
+                const height = prompt('Introduce la altura (in):');
+                editor.style.width = width + 'in';
+                editor.style.height = height + 'in';
+            } else {
+                alert('Tamaño no soportado.');
+            }
+            adjustEditorContainer();
+        });
+
+        document.getElementById('saveProjectBtn').addEventListener('click', function() {
+            const projectName = prompt('Introduce el nombre del proyecto:');
+            if (projectName) {
+                const projectContent = document.getElementById('editor').innerHTML;
+                const existingProjectIndex = projects.findIndex(project => project.name === projectName);
+                if (existingProjectIndex !== -1) {
+                    if (confirm('El proyecto ya existe. ¿Deseas sobrescribirlo?')) {
+                        projects[existingProjectIndex].content = projectContent;
+                        currentProjectIndex = existingProjectIndex;
+                    }
+                } else {
+                    projects.push({ name: projectName, content: projectContent });
+                    currentProjectIndex = projects.length - 1;
+                }
+                localStorage.setItem('projects', JSON.stringify(projects));
+                alert('Proyecto guardado.');
+            } else {
+                alert('Nombre del proyecto no puede estar vacío.');
+            }
+        });
+
+        document.getElementById('showProjectsBtn').addEventListener('click', function() {
+            const projectList = document.createElement('div');
+            projectList.className = 'fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center';
+            projectList.innerHTML = `
+                <div class="bg-white p-4 rounded-lg shadow-lg w-1/2">
+                    <h2 class="text-xl font-bold mb-4">Proyectos Guardados</h2>
+                    <ul id="projectList" class="mb-4">
+                        ${projects.map((project, index) => `
+                            <li class="flex justify-between items-center mb-2">
+                                <span>${project.name}</span>
+                                <div class="flex space-x-2">
+                                    <button onclick="editProject(${index})" class="p-2 bg-gray-200 rounded hover:bg-gray-300"><i class="fas fa-edit"></i></button>
+                                    <button onclick="deleteProject(${index})" class="p-2 bg-gray-200 rounded hover:bg-gray-300"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </li>
+                        `).join('')}
+                    </ul>
+                    <button onclick="closeProjectList()" class="p-2 bg-gray-200 rounded hover:bg-gray-300">Cerrar</button>
+                </div>
+            `;
+            document.body.appendChild(projectList);
+        });
+
+        document.getElementById('saveChangesBtn').addEventListener('click', function() {
+            if (currentProjectIndex !== null) {
+                const projectContent = document.getElementById('editor').innerHTML;
+                projects[currentProjectIndex].content = projectContent;
+                localStorage.setItem('projects', JSON.stringify(projects));
+                alert('Cambios guardados.');
+            } else {
+                alert('No hay ningún proyecto cargado.');
+            }
+        });
+
+        function editProject(index) {
+            const project = projects[index];
+            document.getElementById('editor').innerHTML = project.content;
+            currentProjectIndex = index;
+            closeProjectList();
+        }
+
+        function deleteProject(index) {
+            projects.splice(index, 1);
+            localStorage.setItem('projects', JSON.stringify(projects));
+            document.getElementById('showProjectsBtn').click();
+        }
+
+        function closeProjectList() {
+            const projectList = document.querySelector('.fixed.inset-0');
+            if (projectList) {
+                projectList.remove();
+            }
+        }
+
+        function adjustEditorContainer() {
+            const editorContainer = document.querySelector('.editor-container');
+            const editor = document.getElementById('editor');
+            editorContainer.style.width = editor.style.width;
+            editorContainer.style.height = editor.style.height;
+        }
+
+        window.addEventListener('beforeunload', function(event) {
+            if (currentProjectIndex !== null) {
+                const projectContent = document.getElementById('editor').innerHTML;
+                projects[currentProjectIndex].content = projectContent;
+                localStorage.setItem('projects', JSON.stringify(projects));
+            }
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+</body>
+</html>
