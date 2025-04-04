@@ -1,0 +1,252 @@
+<html lang="es">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   ZX STUDIO
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body { font-family: 'Roboto', sans-serif; }
+  </style>
+ </head>
+ <body class="bg-gray-900 text-white">
+  <!-- Encabezado -->
+  <header class="p-4 bg-gray-800 flex justify-between items-center">
+   <div class="text-2xl font-bold">
+    ZX STUDIO
+   </div>
+   <nav>
+    <ul class="flex space-x-4">
+     <li>
+      <a class="hover:text-gray-400" href="#biblioteca">
+       Biblioteca
+      </a>
+     </li>
+    </ul>
+   </nav>
+  </header>
+  <!-- Lista de cómics -->
+  <main class="p-4" id="biblioteca">
+   <h1 class="text-3xl font-bold mb-6">
+    Biblioteca de Cómics
+   </h1>
+   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <!-- Cómic 1 -->
+    <div class="bg-gray-800 p-4 rounded-lg hover:shadow-lg transition-shadow cursor-pointer" onclick="openComic('comic1')">
+     <img alt="Portada del cómic 1 con un superhéroe en acción" class="w-full h-64 object-cover rounded-lg mb-4" height="600" src="https://storage.googleapis.com/a1aa/image/IrtWsdelJDMZloPVih3-wN2vsafK5JgAq9ThWW6GtWU.jpg" width="400"/>
+     <h2 class="text-xl font-bold">
+      Cómic 1
+     </h2>
+    </div>
+    <!-- Cómic 2 -->
+    <div class="bg-gray-800 p-4 rounded-lg hover:shadow-lg transition-shadow cursor-pointer" onclick="openComic('comic2')">
+     <img alt="Portada del cómic 2 con una escena de batalla épica" class="w-full h-64 object-cover rounded-lg mb-4" height="600" src="https://storage.googleapis.com/a1aa/image/7jSSzB_3ts8XlbnDrfYxYirWbhZOtwpn2GRzhMzFfNk.jpg" width="400"/>
+     <h2 class="text-xl font-bold">
+      Cómic 2
+     </h2>
+    </div>
+    <!-- Cómic 3 -->
+    <div class="bg-gray-800 p-4 rounded-lg hover:shadow-lg transition-shadow cursor-pointer" onclick="openComic('comic3')">
+     <img alt="Portada del cómic 3 con un detective en una ciudad oscura" class="w-full h-64 object-cover rounded-lg mb-4" height="600" src="https://storage.googleapis.com/a1aa/image/GevjAPDhrMFxoWCGn8fUoSPpGH_RcgsCZ1rDgw0c2vw.jpg" width="400"/>
+     <h2 class="text-xl font-bold">
+      Cómic 3
+     </h2>
+    </div>
+    <!-- Cómic 4 -->
+    <div class="bg-gray-800 p-4 rounded-lg hover:shadow-lg transition-shadow cursor-pointer" onclick="openComic('comic4')">
+     <img alt="Portada del cómic 4 con una nave espacial en el espacio" class="w-full h-64 object-cover rounded-lg mb-4" height="600" src="https://storage.googleapis.com/a1aa/image/uJxYi4d34XdTPlJ0haL5MraanTlNHwjQvA7vsTsKbXg.jpg" width="400"/>
+     <h2 class="text-xl font-bold">
+      Cómic 4
+     </h2>
+    </div>
+    <!-- Cómic 5 -->
+    <div class="bg-gray-800 p-4 rounded-lg hover:shadow-lg transition-shadow cursor-pointer" onclick="openComic('comic5')">
+     <img alt="Portada del cómic 5 con un guerrero medieval" class="w-full h-64 object-cover rounded-lg mb-4" height="600" src="https://storage.googleapis.com/a1aa/image/M3zEAfElmlavtFgN_m63q_8tg_aZMvTrvqyvx674LKA.jpg" width="400"/>
+     <h2 class="text-xl font-bold">
+      Cómic 5
+     </h2>
+    </div>
+    <!-- Cómic 6 -->
+    <div class="bg-gray-800 p-4 rounded-lg hover:shadow-lg transition-shadow cursor-pointer" onclick="openComic('comic6')">
+     <img alt="Portada del cómic 6 con un dragón volando sobre una ciudad" class="w-full h-64 object-cover rounded-lg mb-4" height="600" src="https://storage.googleapis.com/a1aa/image/sadm28-IO-D7q-FkiNAJV5RS-U9SZRzicReAWLHxpiA.jpg" width="400"/>
+     <h2 class="text-xl font-bold">
+      Cómic 6
+     </h2>
+    </div>
+    <!-- Cómic 7 -->
+    <div class="bg-gray-800 p-4 rounded-lg hover:shadow-lg transition-shadow cursor-pointer" onclick="openComic('comic7')">
+     <img alt="Portada del cómic 7 con un grupo de superhéroes" class="w-full h-64 object-cover rounded-lg mb-4" height="600" src="https://storage.googleapis.com/a1aa/image/mu0dy4RqWSwpyPKVsBpU60oxSsekVzAKYHJaI55Qmvc.jpg" width="400"/>
+     <h2 class="text-xl font-bold">
+      Cómic 7
+     </h2>
+    </div>
+    <!-- Cómic 8 -->
+    <div class="bg-gray-800 p-4 rounded-lg hover:shadow-lg transition-shadow cursor-pointer" onclick="openComic('comic8')">
+     <img alt="Portada del cómic 8 con un robot gigante" class="w-full h-64 object-cover rounded-lg mb-4" height="600" src="https://storage.googleapis.com/a1aa/image/JfrHprn-tBlVEpSeCVmw-IHkeAb20UUUZpL1uKp4w9M.jpg" width="400"/>
+     <h2 class="text-xl font-bold">
+      Cómic 8
+     </h2>
+    </div>
+    <!-- Cómic 9 -->
+    <div class="bg-gray-800 p-4 rounded-lg hover:shadow-lg transition-shadow cursor-pointer" onclick="openComic('comic9')">
+     <img alt="Portada del cómic 9 con un mago lanzando un hechizo" class="w-full h-64 object-cover rounded-lg mb-4" height="600" src="https://storage.googleapis.com/a1aa/image/U-TD_XWm2tZNDM_HE0r8BdgXcrGUIUWksyqvdwnYXBg.jpg" width="400"/>
+     <h2 class="text-xl font-bold">
+      Cómic 9
+     </h2>
+    </div>
+    <!-- Cómic 10 -->
+    <div class="bg-gray-800 p-4 rounded-lg hover:shadow-lg transition-shadow cursor-pointer" onclick="openComic('comic10')">
+     <img alt="Portada del cómic 10 con una escena de un apocalipsis zombi" class="w-full h-64 object-cover rounded-lg mb-4" height="600" src="https://storage.googleapis.com/a1aa/image/ww0JLLMXSD7vNT-I6FOcXsn8pTLPkGpyA5bg74Zyge0.jpg" width="400"/>
+     <h2 class="text-xl font-bold">
+      Cómic 10
+     </h2>
+    </div>
+    <!-- Cómic 11 -->
+    <div class="bg-gray-800 p-4 rounded-lg hover:shadow-lg transition-shadow cursor-pointer" onclick="openComic('comic11')">
+     <img alt="Portada del cómic 11 con un pirata en alta mar" class="w-full h-64 object-cover rounded-lg mb-4" height="600" src="https://storage.googleapis.com/a1aa/image/8lvDsQ55E-G7yZws560l8LOnRP7S7z0YUQ2GAxGn6ys.jpg" width="400"/>
+     <h2 class="text-xl font-bold">
+      Cómic 11
+     </h2>
+    </div>
+    <!-- Cómic 12 -->
+    <div class="bg-gray-800 p-4 rounded-lg hover:shadow-lg transition-shadow cursor-pointer" onclick="openComic('comic12')">
+     <img alt="Portada del cómic 12 con un samurái en combate" class="w-full h-64 object-cover rounded-lg mb-4" height="600" src="https://storage.googleapis.com/a1aa/image/B4X1ZRjwnRmgSCx9CllF82fK4YUyt41oHo5ktENr82E.jpg" width="400"/>
+     <h2 class="text-xl font-bold">
+      Cómic 12
+     </h2>
+    </div>
+    <!-- Cómic 13 -->
+    <div class="bg-gray-800 p-4 rounded-lg hover:shadow-lg transition-shadow cursor-pointer" onclick="openComic('comic13')">
+     <img alt="Portada del cómic 13 con un vampiro en un castillo" class="w-full h-64 object-cover rounded-lg mb-4" height="600" src="https://storage.googleapis.com/a1aa/image/8KO0kyCWEwvktmPUJXMm1Gu9JqJtFjVqRaRgAQZMtSY.jpg" width="400"/>
+     <h2 class="text-xl font-bold">
+      Cómic 13
+     </h2>
+    </div>
+    <!-- Cómic 14 -->
+    <div class="bg-gray-800 p-4 rounded-lg hover:shadow-lg transition-shadow cursor-pointer" onclick="openComic('comic14')">
+     <img alt="Portada del cómic 14 con un arqueólogo en una tumba antigua" class="w-full h-64 object-cover rounded-lg mb-4" height="600" src="https://storage.googleapis.com/a1aa/image/XkOmUWzBE_JylG0-z6-6k8CrUjShTgHa16uM77aGo64.jpg" width="400"/>
+     <h2 class="text-xl font-bold">
+      Cómic 14
+     </h2>
+    </div>
+    <!-- Cómic 15 -->
+    <div class="bg-gray-800 p-4 rounded-lg hover:shadow-lg transition-shadow cursor-pointer" onclick="openComic('comic15')">
+     <img alt="Portada del cómic 15 con un espía en una misión secreta" class="w-full h-64 object-cover rounded-lg mb-4" height="600" src="https://storage.googleapis.com/a1aa/image/i6lZMCXE-iU2A2MFjXstyD1u7EllbGv86XhZs7FP4Fs.jpg" width="400"/>
+     <h2 class="text-xl font-bold">
+      Cómic 15
+     </h2>
+    </div>
+   </div>
+  </main>
+  <!-- Lector de capítulos -->
+  <section class="p-4 hidden" id="comicReader">
+   <h2 class="text-3xl font-bold mb-6">
+    Lector de Capítulos
+   </h2>
+   <div class="bg-gray-800 p-4 rounded-lg">
+    <div class="flex justify-between items-center mb-4">
+     <h3 class="text-xl font-bold" id="comicTitle">
+      Cómic 1 - Temporada 1
+     </h3>
+     <button class="bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-lg transition-colors" onclick="closeComic()">
+      Regresar
+     </button>
+    </div>
+    <div class="flex space-x-4 mb-4">
+     <button class="bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-lg transition-colors" onclick="selectSeason(1)">
+      Temporada 1
+     </button>
+     <button class="bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-lg transition-colors" onclick="selectSeason(2)">
+      Temporada 2
+     </button>
+     <button class="bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-lg transition-colors" onclick="selectSeason(3)">
+      Temporada 3
+     </button>
+    </div>
+    <div class="bg-gray-700 p-4 rounded-lg" id="chapterContent">
+     <h4 class="text-lg font-bold mb-2">
+      Capítulo 1: Introducción
+     </h4>
+     <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sit amet accumsan tortor...
+     </p>
+     <button class="mt-4 bg-blue-600 hover:bg-blue-500 text-white py-2 px-4 rounded-lg transition-colors" onclick="readChapter()">
+      <i class="fas fa-play mr-2">
+      </i>
+      Leer Capítulo
+     </button>
+    </div>
+   </div>
+  </section>
+  <!-- Reproductor de música -->
+  <footer class="fixed bottom-0 left-0 right-0 bg-gray-800 p-4 flex justify-between items-center">
+   <audio id="backgroundMusic" loop>
+    <source src="https://drive.google.com/uc?export=download&id=1KxGTsDads8mDauJrRe2XwS16eI-fXGbA" type="audio/mpeg"/>
+    Your browser does not support the audio element.
+   </audio>
+   <button class="bg-red-600 hover:bg-red-500 text-white py-2 px-4 rounded-lg transition-colors" onclick="toggleMute()">
+    <i class="fas fa-volume-mute" id="muteIcon">
+    </i>
+   </button>
+  </footer>
+  <script>
+   function openComic(comicId) {
+            document.getElementById('biblioteca').classList.add('hidden');
+            document.getElementById('comicReader').classList.remove('hidden');
+            document.getElementById('comicTitle').innerText = comicId.replace('comic', 'Cómic ') + ' - Temporada 1';
+            selectSeason(1);
+        }
+
+        function closeComic() {
+            document.getElementById('biblioteca').classList.remove('hidden');
+            document.getElementById('comicReader').classList.add('hidden');
+        }
+
+        function selectSeason(season) {
+            document.getElementById('comicTitle').innerText = document.getElementById('comicTitle').innerText.split(' - ')[0] + ' - Temporada ' + season;
+            let chapterContent = '';
+            switch(season) {
+                case 1:
+                    chapterContent = `<h4 class='text-lg font-bold mb-2'>Capítulo 1: Introducción</h4><p>Lorem ipsum dolor sit amet...</p><button class="mt-4 bg-blue-600 hover:bg-blue-500 text-white py-2 px-4 rounded-lg transition-colors" onclick="readChapter()"><i class="fas fa-play mr-2"></i>Leer Capítulo</button>`;
+                    break;
+                case 2:
+                    chapterContent = `<h4 class='text-lg font-bold mb-2'>Capítulo 1: El Despertar</h4><p>Vivamus luctus urna sed urna...</p><button class="mt-4 bg-blue-600 hover:bg-blue-500 text-white py-2 px-4 rounded-lg transition-colors" onclick="readChapter()"><i class="fas fa-play mr-2"></i>Leer Capítulo</button>`;
+                    break;
+                case 3:
+                    chapterContent = `<h4 class='text-lg font-bold mb-2'>Capítulo 1: La Batalla</h4><p>Phasellus ultrices nulla quis nibh...</p><button class="mt-4 bg-blue-600 hover:bg-blue-500 text-white py-2 px-4 rounded-lg transition-colors" onclick="readChapter()"><i class="fas fa-play mr-2"></i>Leer Capítulo</button>`;
+                    break;
+            }
+            document.getElementById('chapterContent').innerHTML = chapterContent;
+        }
+
+        function readChapter() {
+            const chapterText = document.querySelector('#chapterContent p').innerText;
+            const utterance = new SpeechSynthesisUtterance(chapterText);
+            speechSynthesis.speak(utterance);
+        }
+
+        function toggleMute() {
+            const audio = document.getElementById('backgroundMusic');
+            const muteIcon = document.getElementById('muteIcon');
+            if (audio.muted) {
+                audio.muted = false;
+                muteIcon.classList.remove('fa-volume-up');
+                muteIcon.classList.add('fa-volume-mute');
+            } else {
+                audio.muted = true;
+                muteIcon.classList.remove('fa-volume-mute');
+                muteIcon.classList.add('fa-volume-up');
+            }
+        }
+
+        // Start playing the background music when the page loads
+        window.onload = function() {
+            document.getElementById('backgroundMusic').play();
+        }
+  </script>
+ </body>
+</html>
