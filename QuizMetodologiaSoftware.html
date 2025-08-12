@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="es">
+<!DOCTYPE html>
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,42 +33,83 @@ const preguntasBase = [
     {pregunta: "Proceso lineal y secuencial donde cada fase debe completarse antes de la siguiente.", opciones: ["Cascada", "Ágil", "Scrum"], correcta: 0},
     {pregunta: "Desarrollo en pequeñas partes funcionales llamadas incrementos.", opciones: ["Incremental", "Espiral", "Kanban"], correcta: 0},
     {pregunta: "Combina prototipos y cascada con fuerte enfoque en gestión de riesgos.", opciones: ["XP", "Espiral", "Cascada"], correcta: 1},
-    {pregunta: "Se crea un modelo rápido para aclarar requisitos antes del desarrollo final.", opciones: ["Prototipos", "Scrum", "Ágil"], correcta: 0},
+    {pregunta: "Se crea un bu modelo rápido para aclarar requisitos antes del desarrollo final.", opciones: ["Prototipos", "Scrum", "Ágil"], correcta: 0},
     {pregunta: "Conjunto de métodos que priorizan colaboración, flexibilidad y entregas rápidas.", opciones: ["Ágil", "Cascada", "Espiral"], correcta: 0},
     {pregunta: "Ágil que trabaja en ciclos cortos llamados sprints.", opciones: ["Scrum", "Kanban", "XP"], correcta: 0},
     {pregunta: "Ágil que gestiona el trabajo en un tablero visual.", opciones: ["Kanban", "Scrum", "Incremental"], correcta: 0},
-    {pregunta: "Ágil que enfatiza calidad del código y retroalimentación constante.", opciones: ["XP", "Espiral", "Cascada"], correcta: 0},// Características o ventajas → metodología
-{pregunta: "Es ideal para proyectos pequeños y bien definidos.", opciones: ["Cascada", "Ágil", "Espiral"], correcta: 0},
-{pregunta: "Permite entregar versiones funcionales rápidamente.", opciones: ["Incremental", "Cascada", "Prototipos"], correcta: 0},
-{pregunta: "Es más flexible ante cambios y se basa en trabajo colaborativo.", opciones: ["Ágil", "Cascada", "XP"], correcta: 0},
-{pregunta: "Recomendado para proyectos grandes y complejos con alto riesgo.", opciones: ["Espiral", "Prototipos", "Kanban"], correcta: 0},
-{pregunta: "Permite al cliente ver y probar una versión antes de la final.", opciones: ["Prototipos", "Scrum", "Cascada"], correcta: 0},
-{pregunta: "Enfocado en calidad técnica: programación en pareja y pruebas automáticas.", opciones: ["XP", "Scrum", "Ágil"], correcta: 0},
+    {pregunta: "Ágil que enfatiza calidad del código y retroalimentación constante.", opciones: ["XP", "Espiral", "Cascada"], correcta: 0},
 
-// Metodología → característica/uso
-{pregunta: "¿Qué metodología tiene como fases: Requisitos → Diseño → Implementación → Pruebas → Mantenimiento?", opciones: ["Cascada", "Ágil", "Kanban"], correcta: 0},
-{pregunta: "¿En qué metodología se hacen reuniones diarias llamadas Daily Scrum?", opciones: ["Scrum", "Kanban", "Incremental"], correcta: 0},
-{pregunta: "¿Cuál metodología limita el número de tareas en progreso?", opciones: ["Kanban", "Scrum", "Espiral"], correcta: 0},
-{pregunta: "¿Qué metodología crea entregas funcionales por iteraciones cortas?", opciones: ["Scrum", "Cascada", "Prototipos"], correcta: 0},
-{pregunta: "¿Qué metodología es más difícil de cambiar una vez iniciada?", opciones: ["Cascada", "Ágil", "XP"], correcta: 0},
-{pregunta: "¿Qué metodología usarías si los requisitos son inciertos?", opciones: ["Prototipos", "Cascada", "Incremental"], correcta: 0},
-{pregunta: "En XP, ¿qué práctica asegura que todo el código tenga pruebas?", opciones: ["Pruebas automatizadas", "Kanban", "Prototipos"], correcta: 0},
-{pregunta: "En Scrum, ¿quién prioriza el backlog de producto?", opciones: ["Product Owner", "Scrum Master", "Equipo"], correcta: 0},
-{pregunta: "¿Cuál metodología combina ventajas de prototipos con control de riesgos?", opciones: ["Espiral", "Ágil", "XP"], correcta: 0}
+    // Características o ventajas → metodología
+    {pregunta: "Es ideal para proyectos pequeños y bien definidos.", opciones: ["Cascada", "Ágil", "Espiral"], correcta: 0},
+    {pregunta: "Permite entregar versiones funcionales rápidamente.", opciones: ["Incremental", "Cascada", "Prototipos"], correcta: 0},
+    {pregunta: "Es más flexible ante cambios y se basa en trabajo colaborativo.", opciones: ["Ágil", "Cascada", "XP"], correcta: 0},
+    {pregunta: "Recomendado para proyectos grandes y complejos con alto riesgo.", opciones: ["Espiral", "Prototipos", "Kanban"], correcta: 0},
+    {pregunta: "Permite al cliente ver y probar una versión antes de la final.", opciones: ["Prototipos", "Scrum", "Cascada"], correcta: 0},
+    {pregunta: "Enfocado en calidad técnica: programación en pareja y pruebas automáticas.", opciones: ["XP", "Scrum", "Ágil"], correcta: 0},
 
+    // Metodología → característica/uso
+    {pregunta: "¿Qué metodología tiene como fases: Requisitos → Diseño → Implementación → Pruebas → Mantenimiento?", opciones: ["Cascada", "Ágil", "Kanban"], correcta: 0},
+    {pregunta: "¿En qué metodología se hacen reuniones diarias llamadas Daily Scrum?", opciones: ["Scrum", "Kanban", "Incremental"], correcta: 0},
+    {pregunta: "¿Cuál metodología limita el número de tareas en progreso?", opciones: ["Kanban", "Scrum", "Espiral"], correcta: 0},
+    {pregunta: "¿Qué metodología crea entregas funcionales por iteraciones cortas?", opciones: ["Scrum", "Cascada", "Prototipos"], correcta: 0},
+    {pregunta: "¿Qué metodología es más difícil de cambiar una vez iniciada?", opciones: ["Cascada", "Ágil", "XP"], correcta: 0},
+    {pregunta: "¿Qué metodología usarías si los requisitos son inciertos?", opciones: ["Prototipos", "Cascada", "Incremental"], correcta: 0},
+    {pregunta: "En XP, ¿qué práctica asegura que todo el código tenga pruebas?", opciones: ["Pruebas automatizadas", "Kanban", "Prototipos"], correcta: 0},
+    {pregunta: "En Scrum, ¿quién prioriza el backlog de producto?", opciones: ["Product Owner", "Scrum Master", "Equipo"], correcta: 0},
+    {pregunta: "¿Cuál metodología combina ventajas de prototipos con control de riesgos?", opciones: ["Espiral", "Ágil", "XP"], correcta: 0}
 ];
 
-let preguntas = []; let indice = 0; let correctas = 0; let fallos = [];
+let preguntas = [];
+let indice = 0;
+let correctas = 0;
+let fallos = [];
 
-function iniciarQuiz() { preguntas = [...preguntasBase].sort(() => Math.random() - 0.5); indice = 0; correctas = 0; fallos = []; document.getElementById("result").innerHTML = ""; document.getElementById("review").innerHTML = ""; document.getElementById("retryBtn").style.display = "none"; mostrarPregunta(); }
+function iniciarQuiz() {
+    preguntas = [...preguntasBase].sort(() => Math.random() - 0.5);
+    indice = 0;
+    correctas = 0;
+    fallos = [];
+    document.getElementById("result").innerHTML = "";
+    document.getElementById("review").innerHTML = "";
+    document.getElementById("retryBtn").style.display = "none";
+    mostrarPregunta();
+}
 
-function mostrarPregunta() { const quizDiv = document.getElementById("quiz"); if (indice >= preguntas.length) {mostrarResultado();return;} const q = preguntas[indice]; quizDiv.innerHTML = <div class='question'>${q.pregunta}</div> + <div class='options'>${q.opciones.map((op, i) => <button onclick='responder(${i})'>${String.fromCharCode(65+i)}) ${op}</button>).join('')}</div>; }
+function mostrarPregunta() {
+    const quizDiv = document.getElementById("quiz");
+    if (indice >= preguntas.length) {mostrarResultado();return;}
+    const q = preguntas[indice];
+    quizDiv.innerHTML = `<div class='question'>${q.pregunta}</div>` +
+        `<div class='options'>${q.opciones.map((op, i) => `<button onclick='responder(${i})'>${String.fromCharCode(65+i)}) ${op}</button>`).join('')}</div>`;
+}
 
-function responder(opcion) { const q = preguntas[indice]; const resultDiv = document.getElementById("result"); if (opcion === q.correcta) { correctas++; resultDiv.innerHTML = <div class='correct'>✔ Correcto</div>; } else { resultDiv.innerHTML = <div class='incorrect'>✘ Incorrecto</div>; fallos.push({pregunta: q.pregunta,incorrecta: q.opciones[opcion],correcta: q.opciones[q.correcta]}); } indice++; setTimeout(mostrarPregunta, 1000); }
+function responder(opcion) {
+    const q = preguntas[indice];
+    const resultDiv = document.getElementById("result");
+    if (opcion === q.correcta) {
+        correctas++;
+        resultDiv.innerHTML = `<div class='correct'>✔ Correcto</div>`;
+    } else {
+        resultDiv.innerHTML = `<div class='incorrect'>✘ Incorrecto</div>`;
+        fallos.push({pregunta: q.pregunta,incorrecta: q.opciones[opcion],correcta: q.opciones[q.correcta]});
+    }
+    indice++;
+    setTimeout(mostrarPregunta, 1000);
+}
 
-function mostrarResultado() { const porcentaje = Math.round((correctas / preguntas.length) * 100); document.getElementById("quiz").innerHTML = ""; document.getElementById("result").innerHTML = <h2>Resultado: ${porcentaje}%</h2>; if (fallos.length > 0) { const reviewHTML = fallos.map(f => <p><strong>Pregunta:</strong> ${f.pregunta}<br><span class='incorrect'>Tu respuesta:</span> ${f.incorrecta}<br><span class='correct'>Correcta:</span> ${f.correcta}</p>).join(""); document.getElementById("review").innerHTML = reviewHTML; } document.getElementById("retryBtn").style.display = "block"; }
+function mostrarResultado() {
+    const porcentaje = Math.round((correctas / preguntas.length) * 100);
+    document.getElementById("quiz").innerHTML = "";
+    document.getElementById("result").innerHTML = `<h2>Resultado: ${porcentaje}%</h2>`;
+    if (fallos.length > 0) {
+        const reviewHTML = fallos.map(f => `<p><strong>Pregunta:</strong> ${f.pregunta}<br><span class='incorrect'>Tu respuesta:</span> ${f.incorrecta}<br><span class='correct'>Correcta:</span> ${f.correcta}</p>`).join("");
+        document.getElementById("review").innerHTML = reviewHTML;
+    }
+    document.getElementById("retryBtn").style.display = "block";
+}
 
-document.getElementById("retryBtn").addEventListener("click", iniciarQuiz); iniciarQuiz(); </script>
-
+document.getElementById("retryBtn").addEventListener("click", iniciarQuiz);
+iniciarQuiz();
+</script>
 </body>
 </html>
