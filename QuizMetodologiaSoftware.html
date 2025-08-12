@@ -1,115 +1,235 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Evaluación - Metodologías de Software</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Evaluación - Cascada, RUP, XP, RAD, Scrum</title>
 <style>
-    body {font-family: Arial, sans-serif;background-color: #1e1e2f;color: #fff;display: flex;flex-direction: column;align-items: center;padding: 20px;}
-    h1 {color: #9f7aea;}
-    .quiz-container {background: #2b2b40;border-radius: 15px;padding: 20px;max-width: 600px;width: 100%;box-shadow: 0 0 15px rgba(0,0,0,0.5);}
-    .question {margin-bottom: 15px;font-size: 1.2em;}
-    .options button {display: block;width: 100%;margin: 5px 0;padding: 10px;border: none;border-radius: 8px;background-color: #4c4c6d;color: white;font-size: 1em;cursor: pointer;transition: background 0.3s;}
-    .options button:hover {background-color: #6b6bb8;}
-    .result {text-align: center;margin-top: 20px;}
-    .incorrect {color: #ff6b6b;font-weight: bold;}
-    .correct {color: #51fa8a;font-weight: bold;}
-    .review {margin-top: 20px;background: #383850;padding: 15px;border-radius: 10px;}
-    button.retry {background: #9f7aea;padding: 10px 15px;border: none;border-radius: 8px;color: white;font-size: 1em;margin-top: 15px;cursor: pointer;}
-    button.retry:hover {background: #805ad5;}
+  :root{--bg:#0f1724;--card:#111827;--muted:#94a3b8;--accent:#7c3aed;--success:#10b981;--danger:#ef4444}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Inter,ui-sans-serif,system-ui,Arial;background:linear-gradient(180deg,#071029 0%,#0f1724 100%);color:#e6eef8;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:28px}
+  .app{width:100%;max-width:900px}
+  header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+  h1{font-size:1.4rem;margin:0;color:var(--accent)}
+  .summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:16px}
+  .card{background:var(--card);padding:12px;border-radius:10px;box-shadow:0 6px 18px rgba(2,6,23,0.6)}
+  .card h3{margin:0 0 6px 0;font-size:0.95rem;color:#fff}
+  .card p{margin:0;font-size:0.82rem;color:var(--muted)}
+  .quiz-card{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));padding:18px;border-radius:12px}
+  .question{font-size:1.08rem;margin-bottom:12px}
+  .options{display:grid;gap:10px}
+  button.opt{background:#0b1220;border:1px solid rgba(255,255,255,0.03);padding:10px 12px;border-radius:8px;color:#e6eef8;text-align:left;cursor:pointer;font-size:0.95rem}
+  button.opt:hover{transform:translateY(-2px)}
+  .meta{display:flex;justify-content:space-between;align-items:center;margin-top:12px;color:var(--muted);font-size:0.9rem}
+  .feedback{margin-top:12px;font-weight:600}
+  .correct{color:var(--success)}
+  .wrong{color:var(--danger)}
+  .results{margin-top:16px;background:linear-gradient(180deg,rgba(124,58,237,0.06),rgba(124,58,237,0.03));padding:14px;border-radius:10px;color:#e6eef8}
+  .review{margin-top:12px;background:rgba(0,0,0,0.25);padding:12px;border-radius:8px}
+  .controls{display:flex;gap:8px;margin-top:14px}
+  .btn{background:var(--accent);border:none;padding:10px 12px;border-radius:8px;color:white;cursor:pointer}
+  .btn.secondary{background:#1f2937}
+  footer{margin-top:14px;text-align:center;color:var(--muted);font-size:0.85rem}
+  @media (max-width:560px){.meta{flex-direction:column;gap:8px;align-items:flex-start}}
 </style>
 </head>
 <body>
-    <h1>Evaluación - Metodologías de Software</h1>
-    <div class="quiz-container">
-        <div id="quiz"></div>
-        <div class="result" id="result"></div>
-        <div class="review" id="review"></div>
-        <button class="retry" id="retryBtn" style="display:none;">Repetir evaluación</button>
+  <div class="app">
+    <header>
+      <h1>Autoevaluación — Cascada, RUP, XP, RAD, Scrum</h1>
+      <div style="font-size:0.9rem;color:var(--muted)">SENA ADSO Tarde • ID:3230905</div>
+    </header>
+
+    <section class="summary">
+      <div class="card">
+        <h3>Cascada</h3>
+        <p>Modelo secuencial: Requisitos → Diseño → Implementación → Pruebas → Mantenimiento. Bueno si requisitos son estables.</p>
+      </div>
+      <div class="card">
+        <h3>RUP (Rational Unified Process)</h3>
+        <p>Proceso iterativo en fases: Inicio, Elaboración, Construcción, Transición. Control y gestión de riesgos.</p>
+      </div>
+      <div class="card">
+        <h3>XP (Extreme Programming)</h3>
+        <p>Ágil enfocado en calidad técnica: pair programming, TDD, integración continua.</p>
+      </div>
+      <div class="card">
+        <h3>RAD (Rapid Application Development)</h3>
+        <p>Desarrollo por prototipos y ciclos cortos para entregas rápidas; mucha interacción con el usuario.</p>
+      </div>
+      <div class="card">
+        <h3>Scrum</h3>
+        <p>Marco ágil basado en sprints (1–4 semanas), roles (PO, SM, equipo) y eventos (Daily, Planning, Review, Retrospective).</p>
+      </div>
+    </section>
+
+    <div class="quiz-card card">
+      <div id="progress" class="meta"><div id="qcount">Pregunta 0 / 0</div><div id="status">Presiona una opción para empezar</div></div>
+      <div id="questionArea">
+        <div id="question" class="question">Cargando preguntas...</div>
+        <div id="options" class="options"></div>
+        <div id="feedback" class="feedback"></div>
+      </div>
+
+      <div class="controls">
+        <button class="btn" id="nextBtn" style="display:none">Siguiente</button>
+        <button class="btn secondary" id="restartBtn" style="display:none">Repetir (preguntas nuevas)</button>
+        <button class="btn secondary" id="showAllBtn">Mostrar preguntas (ver todo)</button>
+      </div>
+
+      <div id="results" style="display:none" class="results">
+        <div id="score"></div>
+        <div id="missedList" class="review"></div>
+      </div>
+
     </div>
+
+    <footer>Hecho para tu grupo — repite para obtener otro conjunto de preguntas al azar.</footer>
+  </div>
+
 <script>
-const preguntasBase = [
-    // Definiciones → metodología
-    {pregunta: "Proceso lineal y secuencial donde cada fase debe completarse antes de la siguiente.", opciones: ["Cascada", "Ágil", "Scrum"], correcta: 0},
-    {pregunta: "Desarrollo en pequeñas partes funcionales llamadas incrementos.", opciones: ["Incremental", "Espiral", "Kanban"], correcta: 0},
-    {pregunta: "Combina prototipos y cascada con fuerte enfoque en gestión de riesgos.", opciones: ["XP", "Espiral", "Cascada"], correcta: 1},
-    {pregunta: "Se crea un bu modelo rápido para aclarar requisitos antes del desarrollo final.", opciones: ["Prototipos", "Scrum", "Ágil"], correcta: 0},
-    {pregunta: "Conjunto de métodos que priorizan colaboración, flexibilidad y entregas rápidas.", opciones: ["Ágil", "Cascada", "Espiral"], correcta: 0},
-    {pregunta: "Ágil que trabaja en ciclos cortos llamados sprints.", opciones: ["Scrum", "Kanban", "XP"], correcta: 0},
-    {pregunta: "Ágil que gestiona el trabajo en un tablero visual.", opciones: ["Kanban", "Scrum", "Incremental"], correcta: 0},
-    {pregunta: "Ágil que enfatiza calidad del código y retroalimentación constante.", opciones: ["XP", "Espiral", "Cascada"], correcta: 0},
-
-    // Características o ventajas → metodología
-    {pregunta: "Es ideal para proyectos pequeños y bien definidos.", opciones: ["Cascada", "Ágil", "Espiral"], correcta: 0},
-    {pregunta: "Permite entregar versiones funcionales rápidamente.", opciones: ["Incremental", "Cascada", "Prototipos"], correcta: 0},
-    {pregunta: "Es más flexible ante cambios y se basa en trabajo colaborativo.", opciones: ["Ágil", "Cascada", "XP"], correcta: 0},
-    {pregunta: "Recomendado para proyectos grandes y complejos con alto riesgo.", opciones: ["Espiral", "Prototipos", "Kanban"], correcta: 0},
-    {pregunta: "Permite al cliente ver y probar una versión antes de la final.", opciones: ["Prototipos", "Scrum", "Cascada"], correcta: 0},
-    {pregunta: "Enfocado en calidad técnica: programación en pareja y pruebas automáticas.", opciones: ["XP", "Scrum", "Ágil"], correcta: 0},
-
-    // Metodología → característica/uso
-    {pregunta: "¿Qué metodología tiene como fases: Requisitos → Diseño → Implementación → Pruebas → Mantenimiento?", opciones: ["Cascada", "Ágil", "Kanban"], correcta: 0},
-    {pregunta: "¿En qué metodología se hacen reuniones diarias llamadas Daily Scrum?", opciones: ["Scrum", "Kanban", "Incremental"], correcta: 0},
-    {pregunta: "¿Cuál metodología limita el número de tareas en progreso?", opciones: ["Kanban", "Scrum", "Espiral"], correcta: 0},
-    {pregunta: "¿Qué metodología crea entregas funcionales por iteraciones cortas?", opciones: ["Scrum", "Cascada", "Prototipos"], correcta: 0},
-    {pregunta: "¿Qué metodología es más difícil de cambiar una vez iniciada?", opciones: ["Cascada", "Ágil", "XP"], correcta: 0},
-    {pregunta: "¿Qué metodología usarías si los requisitos son inciertos?", opciones: ["Prototipos", "Cascada", "Incremental"], correcta: 0},
-    {pregunta: "En XP, ¿qué práctica asegura que todo el código tenga pruebas?", opciones: ["Pruebas automatizadas", "Kanban", "Prototipos"], correcta: 0},
-    {pregunta: "En Scrum, ¿quién prioriza el backlog de producto?", opciones: ["Product Owner", "Scrum Master", "Equipo"], correcta: 0},
-    {pregunta: "¿Cuál metodología combina ventajas de prototipos con control de riesgos?", opciones: ["Espiral", "Ágil", "XP"], correcta: 0}
+// Pool de preguntas (todas sobre Cascada, RUP, XP, RAD o Scrum). Cada item: pregunta, opciones, correcta (texto)
+const pool = [
+  {q: 'Modelo secuencial con fases que no se superponen; cada fase termina antes de la siguiente.', opts:['Cascada','RUP','Scrum'], a:'Cascada'},
+  {q: 'Proceso iterativo dividido en Inicio, Elaboración, Construcción y Transición.', opts:['RAD','RUP','XP'], a:'RUP'},
+  {q: 'Metodología que enfatiza programación en pareja y pruebas automatizadas (TDD).', opts:['XP','Cascada','RAD'], a:'XP'},
+  {q: 'Desarrollo rápido mediante prototipos y retroalimentación constante del usuario.', opts:['RAD','Scrum','RUP'], a:'RAD'},
+  {q: 'Marco de trabajo con sprints, Product Owner y Scrum Master.', opts:['Scrum','RAD','XP'], a:'Scrum'},
+  {q: 'Buena opción cuando los requisitos están muy bien definidos y no cambiarán.', opts:['Cascada','XP','Scrum'], a:'Cascada'},
+  {q: 'Fase donde se crea el prototipo inicial y se valida con el cliente.', opts:['RAD','RUP','Cascada'], a:'RAD'},
+  {q: 'Metodología que permite iteraciones para reducir riesgos y validar progreso.', opts:['RUP','Cascada','RAD'], a:'RUP'},
+  {q: 'Práctica de XP que implica dos desarrolladores trabajando en la misma estación.', opts:['Pair programming','Kanban board','Sprint'], a:'Pair programming'},
+  {q: 'En Scrum, reunión diaria breve para sincronizar al equipo.', opts:['Daily Scrum','Sprint Review','Planning'], a:'Daily Scrum'},
+  {q: 'Modelo que suele requerir mucha documentación y fases estrictas.', opts:['Cascada','XP','RAD'], a:'Cascada'},
+  {q: 'En RUP, la fase centrada en estabilizar y preparar la entrega al usuario.', opts:['Transición','Inicio','Elaboración'], a:'Transición'},
+  {q: 'Práctica que asegura que exista un conjunto de pruebas automáticas que se ejecutan constantemente.', opts:['Integración continua','Design review','Sprint planning'], a:'Integración continua'},
+  {q: 'Ventaja principal de RAD.', opts:['Velocidad de entrega','Mayor documentación','Menos interacción con el cliente'], a:'Velocidad de entrega'},
+  {q: 'Rol responsable de priorizar el backlog en Scrum.', opts:['Product Owner','Scrum Master','Desarrollador'], a:'Product Owner'},
+  {q: 'Cuando un proyecto necesita alta calidad técnica y cambios frecuentes, es ideal usar?', opts:['XP','Cascada','RUP'], a:'XP'},
+  {q: 'Técnica usada en prototipado donde el cliente valida versiones tempranas.', opts:['Feedback continuo','Documentación extensa','Fases rígidas'], a:'Feedback continuo'},
+  {q: 'En Scrum, cómo se llama la iteración de trabajo (1-4 semanas).', opts:['Sprint','Iteration','Phase'], a:'Sprint'},
+  {q: 'En Cascada, ¿qué fase sigue típicamente a Requisitos?', opts:['Diseño','Sprint','Prototipo'], a:'Diseño'},
+  {q: 'RAD es más apropiado cuando:', opts:['Se necesita velocidad y feedback del usuario','Se requiere mucha documentación formal','El proyecto es de misión crítica y regulado'], a:'Se necesita velocidad y feedback del usuario'},
+  {q: 'RUP es especialmente útil porque:', opts:['Combina iteraciones con gestión de riesgos','Evita documentación','Es totalmente informal'], a:'Combina iteraciones con gestión de riesgos'},
+  {q: 'XP fomenta la práctica de TDD: ¿qué significa TDD?', opts:['Desarrollo guiado por pruebas','Diseño dirigido por datos','Tiempo de desarrollo definido'], a:'Desarrollo guiado por pruebas'},
+  {q: 'En Scrum, quién ayuda a remover impedimentos del equipo?', opts:['Scrum Master','Product Owner','Cliente'], a:'Scrum Master'},
+  {q: 'Una desventaja común del modelo cascada es:', opts:['Difícil adaptarse a cambios','Entrega rápida al cliente','Alta interacción del usuario'], a:'Difícil adaptarse a cambios'},
+  {q: 'RAD se basa en:', opts:['Prototipos y componentes reutilizables','Sprints de 1 semana obligatorios','Documentación extensa previa al desarrollo'], a:'Prototipos y componentes reutilizables'},
+  {q: 'En RUP, ¿qué fase se centra en comprender la viabilidad y riesgos iniciales?', opts:['Elaboración','Construcción','Transición'], a:'Elaboración'},
+  {q: 'XP promueve revisiones constantes del código mediante:', opts:['Programación en pareja y refactorización','Especificaciones largas','Cascada'], a:'Programación en pareja y refactorización'},
+  {q: 'Scrum no define tareas detalladas de programación; se enfoca en:', opts:['Gestión del backlog y entregas por sprint','Documentación exhaustiva','Prototipos pesados'], a:'Gestión del backlog y entregas por sprint'},
+  {q: 'En Cascada se detectan errores normalmente:', opts:['Tarde, durante pruebas','Temprano con prototipos','En cada sprint'], a:'Tarde, durante pruebas'},
+  {q: 'RUP requiere:', opts:['Disciplina y documentación adecuada','Ninguna documentación','Solo prototipos rápidos'], a:'Disciplina y documentación adecuada'},
+  {q: 'XP insiste en integrar el código frecuentemente con:', opts:['Integración continua','Modelo V','Planificación anual'], a:'Integración continua'},
+  {q: 'Scrum usa una reunión al final del sprint para mostrar el trabajo al cliente; esa reunión es:', opts:['Sprint Review','Daily Scrum','Backlog Grooming'], a:'Sprint Review'},
+  {q: 'RAD puede fallar si el cliente no está:', opts:['Disponible para dar feedback','Activo en el proyecto','Interesado en velocidad'], a:'Disponible para dar feedback'},
+  {q: '¿Cuál metodología es más rígida por diseño?', opts:['Cascada','Scrum','RAD'], a:'Cascada'},
+  {q: 'En RUP, la fase de Construcción se centra en:', opts:['Desarrollo del producto y creación de versiones','Definición del alcance','Recolección de requisitos'], a:'Desarrollo del producto y creación de versiones'},
+  {q: 'XP favorece pruebas automatizadas para:', opts:['Mantener calidad y permitir refactorización','Aumentar la documentación','Reducir interacción con cliente'], a:'Mantener calidad y permitir refactorización'},
+  {q: 'En Scrum, quién decide qué trabajo entra en el sprint?', opts:['El equipo junto con Product Owner','Solo el Scrum Master','El cliente directamente'], a:'El equipo junto con Product Owner'},
+  {q: 'RAD puede ser vista como precursora de:', opts:['Metodologías ágiles','Cascada tradicional','Modelos en V'], a:'Metodologías ágiles'}
 ];
 
-let preguntas = [];
-let indice = 0;
-let correctas = 0;
-let fallos = [];
+// Config
+const TOTAL_QUESTIONS = 30; // preguntas por intento
+let questions = []; // preguntas seleccionadas (objetos)
+let current = 0;
+let score = 0;
+let missed = []; // {q, chosen, correct}
 
-function iniciarQuiz() {
-    preguntas = [...preguntasBase].sort(() => Math.random() - 0.5);
-    indice = 0;
-    correctas = 0;
-    fallos = [];
-    document.getElementById("result").innerHTML = "";
-    document.getElementById("review").innerHTML = "";
-    document.getElementById("retryBtn").style.display = "none";
-    mostrarPregunta();
+// util: shuffle array
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+
+function prepare() {
+  // seleccionar aleatoriamente TOTAL_QUESTIONS distintas del pool
+  const copy = pool.slice();
+  shuffle(copy);
+  questions = copy.slice(0, Math.min(TOTAL_QUESTIONS, copy.length)).map(obj=>{
+    // clonamos y también mezclamos opciones, pero guardamos la correcta por texto
+    const opts = obj.opts.slice();
+    shuffle(opts);
+    return {q: obj.q, opts: opts, a: obj.a};
+  });
+  current=0; score=0; missed=[];
+  document.getElementById('results').style.display='none';
+  document.getElementById('restartBtn').style.display='none';
+  document.getElementById('nextBtn').style.display='none';
+  document.getElementById('feedback').textContent='';
+  renderQuestion();
 }
 
-function mostrarPregunta() {
-    const quizDiv = document.getElementById("quiz");
-    if (indice >= preguntas.length) {mostrarResultado();return;}
-    const q = preguntas[indice];
-    quizDiv.innerHTML = `<div class='question'>${q.pregunta}</div>` +
-        `<div class='options'>${q.opciones.map((op, i) => `<button onclick='responder(${i})'>${String.fromCharCode(65+i)}) ${op}</button>`).join('')}</div>`;
+function renderQuestion(){
+  const total = questions.length;
+  if(current>=total){showResults();return}
+  const item = questions[current];
+  document.getElementById('qcount').textContent = `Pregunta ${current+1} / ${total}`;
+  document.getElementById('status').textContent = 'Responde la pregunta';
+  document.getElementById('question').textContent = item.q;
+  const optsDiv = document.getElementById('options'); optsDiv.innerHTML='';
+  item.opts.forEach(opt=>{
+    const btn = document.createElement('button'); btn.className='opt'; btn.textContent = opt;
+    btn.onclick = ()=>selectOption(opt, btn);
+    optsDiv.appendChild(btn);
+  });
+  document.getElementById('feedback').textContent='';
 }
 
-function responder(opcion) {
-    const q = preguntas[indice];
-    const resultDiv = document.getElementById("result");
-    if (opcion === q.correcta) {
-        correctas++;
-        resultDiv.innerHTML = `<div class='correct'>✔ Correcto</div>`;
-    } else {
-        resultDiv.innerHTML = `<div class='incorrect'>✘ Incorrecto</div>`;
-        fallos.push({pregunta: q.pregunta,incorrecta: q.opciones[opcion],correcta: q.opciones[q.correcta]});
-    }
-    indice++;
-    setTimeout(mostrarPregunta, 1000);
+function selectOption(choice, btnEl){
+  // bloquear opciones
+  Array.from(document.querySelectorAll('.opt')).forEach(b=>b.disabled=true);
+  const item = questions[current];
+  const feedback = document.getElementById('feedback');
+  if(choice === item.a){
+    score++;
+    feedback.textContent = '✔ Correcto'; feedback.className='feedback correct';
+  } else {
+    feedback.textContent = '✘ Incorrecto'; feedback.className='feedback wrong';
+    missed.push({q:item.q, chosen:choice, correct:item.a});
+  }
+  // mostrar next
+  document.getElementById('nextBtn').style.display='inline-block';
+  document.getElementById('restartBtn').style.display='inline-block';
+  document.getElementById('status').textContent = `Has respondido ${current+1} de ${questions.length}`;
 }
 
-function mostrarResultado() {
-    const porcentaje = Math.round((correctas / preguntas.length) * 100);
-    document.getElementById("quiz").innerHTML = "";
-    document.getElementById("result").innerHTML = `<h2>Resultado: ${porcentaje}%</h2>`;
-    if (fallos.length > 0) {
-        const reviewHTML = fallos.map(f => `<p><strong>Pregunta:</strong> ${f.pregunta}<br><span class='incorrect'>Tu respuesta:</span> ${f.incorrecta}<br><span class='correct'>Correcta:</span> ${f.correcta}</p>`).join("");
-        document.getElementById("review").innerHTML = reviewHTML;
-    }
-    document.getElementById("retryBtn").style.display = "block";
+document.getElementById('nextBtn').addEventListener('click', ()=>{current++; document.getElementById('nextBtn').style.display='none'; renderQuestion();});
+
+// restart: repetir con nueva selección aleatoria
+document.getElementById('restartBtn').addEventListener('click', ()=>{prepare();});
+
+// mostrar todo (lista rápida de preguntas y respuestas) — útil para repasar
+let shownAll = false;
+document.getElementById('showAllBtn').addEventListener('click', ()=>{
+  if(!shownAll){
+    const list = pool.map((p,i)=>`<li><strong>${i+1}.</strong> ${p.q} — <em>${p.a}</em></li>`).join('');
+    document.getElementById('questionArea').innerHTML = `<div class="question">Banco de preguntas (repaso rápido)</div><div style="text-align:left"><ol>${list}</ol></div>`;
+    document.getElementById('showAllBtn').textContent = 'Volver al cuestionario';
+    shownAll = true;
+  } else {
+    shownAll = false; document.getElementById('showAllBtn').textContent = 'Mostrar preguntas (ver todo)'; renderQuestion();
+  }
+});
+
+function showResults(){
+  document.getElementById('question').textContent='Evaluación finalizada';
+  document.getElementById('options').innerHTML='';
+  document.getElementById('feedback').textContent='';
+  document.getElementById('qcount').textContent = `Resultado`;
+  const pct = Math.round((score / questions.length)*100);
+  document.getElementById('score').innerHTML = `<h2>${pct}% — ${score} / ${questions.length} correctas</h2>`;
+  if(missed.length>0){
+    const html = missed.map(m=>`<div style="margin-bottom:8px"><strong>Pregunta:</strong> ${m.q}<br><span style="color:var(--danger)">Tu respuesta:</span> ${m.chosen} &nbsp; | &nbsp; <span style="color:var(--success)">Correcta:</span> ${m.correct}</div>`).join('');
+    document.getElementById('missedList').innerHTML = `<h3>Respuestas incorrectas</h3>`+html;
+  } else {
+    document.getElementById('missedList').innerHTML = '<div class="correct">¡Perfecto! No hubo errores.</div>';
+  }
+  document.getElementById('results').style.display='block';
+  document.getElementById('nextBtn').style.display='none';
+  document.getElementById('restartBtn').style.display='inline-block';
 }
 
-document.getElementById("retryBtn").addEventListener("click", iniciarQuiz);
-iniciarQuiz();
+// iniciar
+prepare();
 </script>
 </body>
 </html>
